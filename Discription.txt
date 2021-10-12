@@ -1,0 +1,9 @@
+A tool to add a Sci-HUB or Lib-Gen download icon to every DOI-link on the page.
+
+It will also skip several unnecessary clicks like:
+    The Sci-HUB "Open PDF"
+    The STUPID Wiley "ePDF" function
+    The SciFinder "Other Sources" page where you are almost always clicking the "DOI" link.
+
+Explanation of required permissions:
+    "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.

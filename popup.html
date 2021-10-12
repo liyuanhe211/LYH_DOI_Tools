@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LYH DOI Tools</title>
+</head>
+<body>
+<table align="left">
+    <tr>
+        <th><input type="radio" id="scihub_radio" name="domain_choice" value="scihub_radio"></th>
+        <th>Sci-Hub domain:</th>
+        <th><input type="text" id="scihub_domain" class="web_url_lineinput" name="scihub_domain" value=""><br></th>
+    </tr>
+    <tr>
+        <th><input type="radio" id="libgen_radio" name="domain_choice" value="libgen_radio"></th>
+        <th>Lib-Gen domain:</th>
+        <th><input type="text" id="libgen_domain" class="web_url_lineinput" name="libgen_domain" value=""><br></th>
+    </tr>
+    <tr>
+        <th><input type="checkbox" id="hide_scihub_or_libgen" name="hide_scihub_or_libgen" value="hide_scihub_or_libgen" checked></th>
+        <th colspan="2" align="left">Auto hide Sci-Hub or Lib-Gen page</th>
+    </tr>
+</table>
+<style>
+    body {
+        min-width: 450px;
+    }
+
+    .button {
+        border: none;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        margin: 4px 2px;
+        width: 95px;
+        cursor: pointer;
+    }
+
+    .web_url_lineinput {
+        min-width: 300px;
+    }
+</style>
+<!--<p>-->
+<!--    <button type="button" class="button" id="show_filters" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"-->
+<!--            aria-controls="collapseExample">-->
+<!--        Show Filters-->
+<!--    </button>-->
+<!--</p>-->
+<!--<div class="collapse" id="collapseExample">-->
+<!--    <textarea id="filter_textarea" name="filter_textarea" rows="10" cols="50">-->
+<!--    </textarea>-->
+<!--</div>-->
+<p>
+    <button type="button" class="button" id="Sci_HUB_this_page">Sci-Hub Current</button>
+</p>
+<p>
+    <button type="button" class="button" id="select_all">Select All</button>
+    <button type="button" class="button" id="select_none">Select None</button>
+    <button type="button" class="button" id="toggle_all">Toggle All</button>
+    <button type="button" class="button" id="launch">Launch</button>
+</p>
+<div id="DOIs"></div>
+<div id="Download queue"></div>
+<script src="popup.js" charset="utf-8"></script>
+</body>
+</html>
