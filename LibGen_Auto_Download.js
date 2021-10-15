@@ -42,7 +42,9 @@ function background_page_options_set(background_page_settings)
                 // console.log('d')
                 i.parentElement.click()
                 // console.log('e')
-                i.textContent = "PDF download auto-started by LYH DOI Tools...\r\nThis page will (probably) self-destruct in 5 seconds..."
+                i.innerHTML = '<p style="font-size:70%;">PDF download auto-started by LYH DOI Tools...</p>' +
+                    '<p style="font-size:70%;">This page will (probably) self-destruct in 10 seconds...</p>' +
+                    '<p style="font-size:50%;">Cancel this by unchecking the "Auto hide Sci-Hub or Lib-Gen page" option in the popup page</p>'
                 if(hide_sci_hub)
                 {
                     console.log("Page will close in 10 seconds...")

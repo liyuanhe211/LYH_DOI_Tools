@@ -1,0 +1,1 @@
+chrome.runtime.sendMessage({switch_to_previous_tab: window.location.href});

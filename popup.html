@@ -38,6 +38,18 @@
         cursor: pointer;
     }
 
+    .button_wide {
+        border: none;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        margin: 4px 2px;
+        width: 200px;
+        cursor: pointer;
+    }
+
     .web_url_lineinput {
         min-width: 300px;
     }
@@ -53,16 +65,20 @@
 <!--    </textarea>-->
 <!--</div>-->
 <p>
-    <button type="button" class="button" id="Sci_HUB_this_page">Sci-Hub Current</button>
+    <button type="button" class="button_wide" id="Sci_HUB_this_page">Sci-Hub Current Page</button>
 </p>
+<span id="No_DOI">No DOI found in this page.</span>
+<span id="LinkButtons">
+    <p>Batch Download:</p>
 <p>
     <button type="button" class="button" id="select_all">Select All</button>
     <button type="button" class="button" id="select_none">Select None</button>
     <button type="button" class="button" id="toggle_all">Toggle All</button>
     <button type="button" class="button" id="launch">Launch</button>
 </p>
-<div id="DOIs"></div>
-<div id="Download queue"></div>
+<span id="DOIs"></span>
+<span id="Download queue"></span>
+</span>
 <script src="popup.js" charset="utf-8"></script>
 </body>
 </html>

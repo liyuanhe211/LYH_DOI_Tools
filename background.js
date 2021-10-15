@@ -122,3 +122,25 @@ function set_dict_value_if_not_exist(dict,key,value)
         set_dict_value(dict,key,value)
     }
 }
+
+function x_mol_search(keyword)
+{
+    chrome.tabs.create({url: "https://www.x-mol.com/q?option="+keyword, active: false});
+}
+
+function x_mol_search_context_menu(info,tab)
+{
+    x_mol_search(info.selectionText);
+}
+
+chrome.contextMenus.create({title: "Open and Download Selected Citation (Ctrl+Shift+S)",
+                           contexts:["selection"],
+                           onclick: x_mol_search_context_menu});
+
+chrome.commands.onCommand.addListener((command) => {
+    if (command === "x_mol_search")
+    {
+        console.log('short cut detected')
+        chrome.tabs.executeScript({code: "chrome.runtime.sendMessage({\"CreateTab\": \"https://www.x-mol.com/q?option=\"+window.getSelection().toString()});"});
+    }
+});

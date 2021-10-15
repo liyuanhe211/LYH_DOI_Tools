@@ -53,8 +53,11 @@ function background_page_options_set(background_page_settings)
 
             let text = "<b>PDF download auto-started by LYH DOI Tools... </b></br></br>"
             text += 'PDF file found: <b>[ ' + link_filename + ' ]</b><br><br>'
-            text += 'This page will (probably) self-destruct in 5 seconds...<br><br>'
+            text += 'This page will (probably) self-destruct in 10 seconds...<br><br>'
+            text += 'Cancel this by unchecking the "Auto hide Sci-Hub or Lib-Gen page" option in the popup page<br><br>'
             document.getElementById('article').innerHTML = '<center><br><br><br><br><br><br><br>' + text + '</center>'
+
+
 
             if (hide_sci_hub)
             {

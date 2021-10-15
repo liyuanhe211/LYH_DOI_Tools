@@ -132,10 +132,12 @@ function renderURL(active_window_url) {
 
 
     let background_page_window = chrome.extension.getBackgroundPage()
+    let has_links = false
     if (active_window_url in background_page_window.page_DOIs)
     {
         for (doi of background_page_window.page_DOIs[active_window_url])
         {
+            has_links = true
             let input = document.createElement('input')
             input.type = 'checkbox'
             input.value = doi
@@ -157,6 +159,17 @@ function renderURL(active_window_url) {
             document.getElementById('DOIs').appendChild(label)
             document.getElementById('DOIs').appendChild(br)
         }
+    }
+
+    if (!has_links)
+    {
+        document.getElementById("LinkButtons").style.visibility = 'hidden'
+        document.getElementById("No_DOI").style.visibility = 'visible'
+    }
+    else
+    {
+        document.getElementById("LinkButtons").style.visibility = 'visible'
+        document.getElementById("No_DOI").style.visibility = 'hidden'
     }
 }
 

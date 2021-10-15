@@ -3,7 +3,13 @@
   "version": "0.1",
   "manifest_version": 2,
   "description": "LYH DOI Tools",
-  "permissions": ["tabs","http://*/*", "https://*/*"],
+  "permissions": ["tabs","contextMenus","http://*/*", "https://*/*"],
+  "commands": {
+    "x_mol_search": {
+      "suggested_key": "Ctrl+Shift+S",
+      "description": "Search reference with the selected ref info on x-mol.com to get to the original article page."
+    }
+  },
   "content_scripts": [
     {
       "run_at": "document_end",
@@ -22,6 +28,13 @@
       "matches": ["https://chemport.cas.org/cgi-bin/*"],
       "js": [
         "SciFinder_OtherSources_DOI_Clicker.js"
+      ]
+    },
+    {
+      "run_at": "document_start",
+      "matches": ["https://www.x-mol.com/q"],
+      "js": [
+        "x_mol_tab_switch.js"
       ]
     },
     {
@@ -49,6 +62,10 @@
   "web_accessible_resources" : [
     "images/*.png"
   ],
+  "icons": {
+    "16": "images/Icon16.png",
+    "128": "images/Icon128.png"
+  },
   "browser_action" : {
     "default_icon" : "images/Icon.png",
     "default_popup" : "popup.html"
