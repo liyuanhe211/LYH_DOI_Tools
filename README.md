@@ -51,3 +51,24 @@ In the popup window, there are a few options:
  * `Sci-Hub Current Page` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of current domain name.)
  * The last section lists all the DOIs found on the current page for batch download. Be gental with this function. Download too much papers at once could get you into the banned ip list on the Sci-Hub or Lib-Gen website.
 
+## Change log
+Todo:
+Changing the Lib-Gen page icon to reflect download status
+Automatic update of usable Sci-Hub domains
+Nature的https://www.nature.com/articles/nature10232只在最下面有链接，上面有无哪里可以识别
+
+Change log:
+0.3 - 20211015
+ * Bug fix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only 10.1002 (Wiley) DOI is allowed to have parentheses, and the parentheses has to be paired. All non-ascii characters is also not allowed.
+ * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
+ * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
+ * Jump unnecessary waiting for redirection for x-mol.com
+ * The batch download buttons will be hidden if no DOI is found on the page.
+
+ 
+0.2 - 20211014
+ * If Lib-Gen returns "file not found in DB", a page from Sci-Hub with the same DOI will be opened.
+ * The tab-switching will be inhibited if the current page is not Lib-Gen, Sci-Hub, or SciFinder "Other Sources" page.
+ * Bug fix where the download button becomes very large in some pages caused by CSS override. (https://www.science.org/content/blog-post/maoecrystal-v-you-poor-people；https://www.sciencedirect.com/science/article/pii/S095741661730441X)
+ * Removed from todo list: 显示出libgen即将关闭信息后、或者开始下载后，再移动页面，并提供选项
+ * Removed from todo list: 更换下载选项后刷新当前页面
