@@ -64,6 +64,7 @@ Change log:
  * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
  * Jump unnecessary waiting for redirection for x-mol.com
  * The batch download buttons will be hidden if no DOI is found on the page.
+ * Prevent page swapping in the first place by using the onClick function and the messaging system.
  * Recognize links on Nature pages
  * Bug fix: Decode URI before recognization
 
