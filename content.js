@@ -8,56 +8,110 @@ var DOI_to_remove = []
 var background_page_options = {}
 
 
+function match_doi(text)
+{
+    //匹配：
+    // https://doi.org/10.1002/anie.202105092
+    // 10.1021/acs.orglett.5b00297
+    // 对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C
+    // 行文中的情况：《自然•化学》(Nature Chemistry, 2021, DOI: 10.1038/s41557-021-00778-z)。近日，2021年诺贝尔化学奖颁给了德国化学家本杰明·利斯特（Benjamin List），以及美国
+    // 排除多余文字如"(blabla, DOI: 10.1021/acs.orglett.5b00297)"不要把括号吃进去
+    // 排除中文字符和中文标点
+    // 只有10.1002允许有括号
+    // 括号必须在10.开头之后左右匹配
+    //
+    // 特殊情况举例：
+    // https://chem.xmu.edu.cn/xwdt/kyzc.htm；
+    // https://chem.xmu.edu.cn/info/1274/11287.htm；
+    let doi_reg_all = RegExp(/(10(?:\.\d+)+(?:\/[^\s&\/]+)+)/g)
+
+    if (text.search('10.') !== -1 && doi_reg_all.test(text))
+    {
+        let re_ret = text.match(doi_reg_all)
+        if (re_ret)
+        {
+            let matched_doi = re_ret[0]
+            matched_doi = matched_doi.split(/[^\x00-\x7F]/g,1)[0]
+            // 如果不是wiley的，不允许出现括号
+            if (!matched_doi.startsWith('10.1002'))
+            {
+                matched_doi = matched_doi.split(/[()]/g,1)[0]
+            }
+            // 如果是10.1002开头，自左向右匹配，直到第一个无左括号的右括号
+            else
+            {
+                let cut = 0
+                let matching_status = 0
+                while(cut<matched_doi.length)
+                {
+                    if (matched_doi[cut]=='(')
+                    {
+                        matching_status++
+                    }
+                    if (matched_doi[cut]==')')
+                    {
+                        matching_status--
+                    }
+                    if (matching_status<0)
+                    {
+                        break
+                    }
+                    cut++
+                }
+                matched_doi = matched_doi.substr(0,cut)
+            }
+            return matched_doi
+        }
+    }
+}
+
+// function test_match_doi_function()
+// {
+//     console.log(match_doi('hahaha'))
+//     console.log(match_doi('10.1021/acs.orglett.5b00297'))
+//     console.log(match_doi('哈哈哈https://doi.org/10.1002/anie.202105092'))
+//     console.log(match_doi('哈哈哈https://doi.org/10.1002/anie.202105092)'))
+//     console.log(match_doi('https://doi.org/10.1002/anie.202105092'))
+//     console.log(match_doi('10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
+//     console.log(match_doi('https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
+//     console.log(match_doi('对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
+//     console.log(match_doi('对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C)'))
+//     console.log(match_doi('《自然•化学》(Nature Chemistry, 2021, DOI: 10.1038/s41557-021-00778-z)。近日，2021年诺贝尔化学奖颁给了德国化学家本杰明·利斯特（Benjamin List），以及美国'))
+//     console.log(match_doi("(blabla, DOI: 10.1021/acs.orglett.5b00297)"))
+//     console.log(match_doi("DOI: 10.1021/acs.orglett.5b00297）"))
+// }
+
+
 function doi_nodes(html_content)
 {
-    var doi_reg = RegExp(/(10(?:\.\d+)+(?:\/[^\s&\/]+)+)/g)
     let walk = document.createTreeWalker(html_content);
     do
     {
         var node = walk.nextNode()
         if (node)
         {
+            // text nodes
             if (node.nodeType === 3 &&
                 node.parentElement.tagName.toLowerCase() !== 'script' &&
                 node.textContent.trim())
             {
                 let text = node.textContent
-                if (text.search('10.') !== -1 && doi_reg.test(text))
+                let matched_doi = match_doi(text)
+                if (matched_doi)
                 {
-                    let re_ret = text.match(doi_reg)
-                    if (re_ret)
-                    {
-                        // if (re_ret.length === 1)
-                        // {
-                        ret_text_nodes.push(node)
-                        ret_text_DOIs.push(re_ret[0])
-                        // }
-                        // else
-                        // {
-                        //     console.log('>>>>', node.textContent, 'Multiple Match Result')
-                        // }
-                    }
-
+                    ret_text_nodes.push(node)
+                    ret_text_DOIs.push(matched_doi)
                 }
             }
+            // link nodes
             else if (typeof node.getAttribute == "function" && node.getAttribute("href"))
             {
                 var href = node.getAttribute("href")
-                if (href.search('10.') !== -1 && doi_reg.test(href))
+                let matched_doi = match_doi(href)
+                if (matched_doi)
                 {
-                    let re_ret = href.match(doi_reg)
-                    if (re_ret)
-                    {
-                        // if (re_ret.length === 1)
-                        // {
-                        ret_href_nodes.push(node)
-                        ret_href_DOIs.push(re_ret[0])
-                        // }
-                        // else
-                        // {
-                        //     console.log('>>>>', node.textContent, node.getAttribute("href"), 'Multiple Match Result')
-                        // }
-                    }
+                    ret_href_nodes.push(node)
+                    ret_href_DOIs.push(matched_doi)
                 }
             }
         }
@@ -146,26 +200,44 @@ function filter(A)
     }
 }
 
+
 function background_page_options_set(background_page_settings)
 {
 
     background_page_options = background_page_settings
+    let sci_hub_url = get_dict_value(background_page_options, "scihub_link", 'https://sci-hub.se/[DOI]')
+    let lib_gen_url = get_dict_value(background_page_options, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
 
     const doi_to_link = function(doi)
     {
         let template = ""
         if (get_dict_value(background_page_options, "pdf_link_radio_choice", 'sci-hub')=='sci-hub')
         {
-            template =  get_dict_value(background_page_options, "scihub_link", 'https://sci-hub.se/[DOI]')
+            template =  sci_hub_url
         }
         else
         {
-            template =  get_dict_value(background_page_options, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
+            template =  lib_gen_url
         }
         regex = new RegExp(/[<>:"\/\\|?*%]/,'g')
         let download_filename = doi.replace(regex, '_') + '.pdf'
         let ret = template.replace(/\[DOI\]/g,doi).replace(/\[DOI_FILENAME\]/g,download_filename)
         return ret
+    }
+
+
+    const already_is_download_page = function()
+    {
+        //如果是Lib-Gen或者Sci-Hub的下载页，不再创建链接按钮
+        let current_page_url = window.location.href
+        if (current_page_url.startsWith(lib_gen_url.split(/[\[\]\?]/g)[0]))
+        {
+            return true
+        }
+        if (current_page_url.startsWith(sci_hub_url.split(/[\[\]\?]/g)[0]))
+        {
+            return true
+        }
     }
 
     const create_download_icon = function(doi)
@@ -184,10 +256,10 @@ function background_page_options_set(background_page_settings)
     let final_DOIs = []
     let final_DOIs_with_position = [] // for sorting the DOI so the DOI list has the same order as the document
     let final_DOIs_sorted = [] // for sorting the DOI so the DOI list has the same order as the document
+    let x_mol_processed_links = [] // record which link has been processed by x-mol, there might be duplicated links
 
     for (let i=0;i<ret_text_nodes.length;i++)
     {
-        // console.log('a',i)
         let text_node = ret_text_nodes[i]
         if (text_node)
         {
@@ -196,7 +268,6 @@ function background_page_options_set(background_page_settings)
 
             if (DOI_to_remove.includes(doi))
             {
-                // console.log("DOI removed", doi)
                 continue
             }
             if (filter(A))
@@ -204,9 +275,11 @@ function background_page_options_set(background_page_settings)
 
             if (! processed_nodes.includes(A))
             {
-                A.appendChild(create_download_icon(doi));
-//            A.appendChild(create_download_icon(doi,'lib-gen'));
-                console.log("Download icon created", A, doi)
+                if (!already_is_download_page())
+                {
+                    A.appendChild(create_download_icon(doi));
+                    console.log("Download icon created", A, doi)
+                }
                 processed_nodes.push(A)
             }
             if (! final_DOIs.includes(doi))
@@ -232,8 +305,37 @@ function background_page_options_set(background_page_settings)
             continue
         if (! processed_nodes.includes(A))
         {
-            A.appendChild(create_download_icon(doi));
-//            A.appendChild(create_download_icon(doi,'lib-gen'));
+            if (!already_is_download_page())
+            {
+                let created_download_icon = create_download_icon(doi)
+                A.appendChild(created_download_icon);
+
+                // x-mol的https://www.x-mol.com/q页面的处理
+                // x-mol页面上创建一个链接（因为x-mol自己的target不对），然后在自己的页面上打开期刊原文页面
+                // 然后打开一个sci-hub或者lib-gen下载页面，打开它
+
+                if (window.location.href.startsWith('https://www.x-mol.com/q'))
+                {
+                    if (x_mol_processed_links.indexOf(href_node['href']) === -1)
+                    {
+                        let aTags = document.getElementsByTagName("a");
+                        let searchText = "已成功找到 , 正在跳转……";
+                        for (tag of aTags)
+                        {
+                            if (tag.innerText.search(searchText) != -1)
+                            {
+                                console.log('haha')
+                                let x_mol_article_link = document.createElement('a');
+                                x_mol_article_link.href = href_node['href'];
+                                x_mol_processed_links.push(href_node['href'])
+                                x_mol_article_link.click();
+                                chrome.runtime.sendMessage({"CreateTab": created_download_icon['href']});
+                                break
+                            }
+                        }
+                    }
+                }
+            }
             processed_nodes.push(A)
         }
         if (! final_DOIs.includes(doi))
