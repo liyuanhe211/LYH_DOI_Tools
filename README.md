@@ -21,6 +21,6 @@ In the popup window, there are a few options:
 
  * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed) or the batch download function below
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actuall DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
- * `Sci-Hub current` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of current domain name.)
+ * `Sci-Hub Current Page` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of current domain name.)
  * The last section lists all the DOIs found on the current page for batch download. Be gental with this function. Download too much papers at once could get you into the banned ip list on the Sci-Hub or Lib-Gen website.
 
