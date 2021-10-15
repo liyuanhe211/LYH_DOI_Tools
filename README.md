@@ -55,7 +55,6 @@ In the popup window, there are a few options:
 Todo:
 Changing the Lib-Gen page icon to reflect download status
 Automatic update of usable Sci-Hub domains
-Nature的https://www.nature.com/articles/nature10232只在最下面有链接，上面有无哪里可以识别
 
 Change log:
 0.3 - 20211015
