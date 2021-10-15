@@ -15,9 +15,12 @@ It will also jump the unnecessary steps needed to download pdf on the Sci-Hub or
 For this to work properly, you probably need to set the PDF download option of chrome (by opening chrome://settings/content/pdfDocuments) to "Download PDFs" instead of "Open PDFs in Chrome":
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137435074-5980aee2-f9d6-44e4-a065-164a46bb8e67.png width=400 /></kbd> </p>
 
+When you select a string containing text for one single reference (e.g. J. Am. Chem. Soc. 2013, 135(14), 5258), right click, and select `Open and Download Selected Citation`, the corresponding page for the reference will be opened (powered by x-mol.com), with the file downloaded (powered by which ever site you selected). This function can also be called by selecting the text and press the shortcut Ctrl+Shift+S (Search). This makes it quite convenient for downloading many references with only ref info.
+<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510716-4964c0ae-d59b-49bc-91a5-52f1bf7ca905.png width=400 /></kbd> </p>
+
 <a name="100"></a>
 In the popup window, there are a few options:
-<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137436027-9c7cd18d-ac59-4746-9d69-727e7b50b0b7.png width=400 /></kbd>  </p>
+<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510543-dc3ded1a-cba2-41ea-a07f-611ff1d4226c.png width=400 /></kbd>  </p>
 
  * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed) or the batch download function below
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actuall DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
