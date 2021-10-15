@@ -5,7 +5,7 @@ A Chrome extension to add Sci-HUB or Lib-Gen download icons to every DOI-link on
 Either load this folder as unpacked extension in Chrome Developer Mode, or install the version from Chrome store (with a few days review lag):
 https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmfglaijkic
 
-## Feature list
+## Features
  * [Add a download button to every DOI string or DOI link.](#1000)
  * [Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.](#3000)
  * [Batch download PDFs for all DOI links in one page.](#4000)
@@ -59,11 +59,13 @@ Nature的https://www.nature.com/articles/nature10232只在最下面有链接，�
 
 Change log:
 0.3 - 20211015
- * Bug fix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only 10.1002 (Wiley) DOI is allowed to have parentheses, and the parentheses has to be paired. All non-ascii characters is also not allowed.
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
+ * Bug fix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only 10.1002 (Wiley) DOI is allowed to have parentheses, and the parentheses has to be paired. All non-ascii characters is also not allowed.
  * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
  * Jump unnecessary waiting for redirection for x-mol.com
  * The batch download buttons will be hidden if no DOI is found on the page.
+ * Recognize links on Nature pages
+ * Bug fix: Decode URI before recognization
 
  
 0.2 - 20211014
