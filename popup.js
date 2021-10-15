@@ -151,11 +151,32 @@ function renderURL(active_window_url) {
                     console.log("save_doi_choice required:", active_window_url,doi,state)
                 })
 
+
             let label = document.createElement('a')
             label.textContent = doi
-            label.href = doi_to_link(doi)
+            label.href = 'dx.doi.org/'+doi
+            label.onclick = function() {
+                chrome.runtime.sendMessage({"CreateTab": 'https://dx.doi.org/'+label.textContent});
+                return false;
+            }
+
+
+            let img_button = document.createElement('a')
+            let download_button_img_src = ""
+            download_button_img_src = chrome.runtime.getURL("images/Download_button.png")
+            img_button.setAttribute('href',doi_to_link(label.textContent))
+            let img = document.createElement("img");
+            img.setAttribute("src", download_button_img_src)
+            img.setAttribute('style',"height:15px;")
+            img_button.appendChild(img)
+            img_button.onclick = function() {
+                chrome.runtime.sendMessage({"CreateTab": doi_to_link(label.textContent)});
+                return false;
+            }
+
             let br = document.createElement('br')
             document.getElementById('DOIs').appendChild(input)
+            document.getElementById('DOIs').appendChild(img_button)
             document.getElementById('DOIs').appendChild(label)
             document.getElementById('DOIs').appendChild(br)
         }

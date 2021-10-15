@@ -33,11 +33,11 @@ function match_doi(text)
             let matched_doi = re_ret[0]
             matched_doi = matched_doi.split(/[^\x00-\x7F]/g,1)[0]
             // 如果不是wiley的，不允许出现括号
-            if (!matched_doi.startsWith('10.1002'))
+            if ((!matched_doi.startsWith('10.1002')) && (!matched_doi.startsWith('10.1016')))
             {
                 matched_doi = matched_doi.split(/[()]/g,1)[0]
             }
-            // 如果是10.1002开头，自左向右匹配，直到第一个无左括号的右括号
+            // 如果是10.1002开头或10.1016开头，自左向右匹配，直到第一个无左括号的右括号
             else
             {
                 let cut = 0
@@ -60,6 +60,19 @@ function match_doi(text)
                 }
                 matched_doi = matched_doi.substr(0,cut)
             }
+            return matched_doi
+        }
+    }
+
+    // 为nature特意写一条，因为nature文章上半页生成不了链接
+    // https://www.nature.com/articles/s41586-021-03878-5.pdf ==> 10.1038/s41586-021-03878-5
+    if (window.location.href.startsWith('https://www.nature.com/articles/'))
+    {
+        let nature_doi_reg = RegExp(/articles\/([^\s&\/]+).pdf/g)
+        let re_ret = nature_doi_reg.exec(text)
+        if (re_ret)
+        {
+            let matched_doi = "10.1038/"+re_ret[1]
             return matched_doi
         }
     }
@@ -107,7 +120,7 @@ function doi_nodes(html_content)
             else if (typeof node.getAttribute == "function" && node.getAttribute("href"))
             {
                 var href = node.getAttribute("href")
-                let matched_doi = match_doi(href)
+                let matched_doi = match_doi(decodeURIComponent(href))
                 if (matched_doi)
                 {
                     ret_href_nodes.push(node)
@@ -121,7 +134,6 @@ function doi_nodes(html_content)
     // filter through doi containing each other
     // e.g. remove 10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf if 10.1021/acs.orglett.5b00297 existed
     // while 10.1021/acs.orglett.5b002 should be kept even if 10.1021/acs.orglett.5b00 existed
-
 
     let all_DOIs = ret_href_DOIs.concat(ret_text_DOIs)
     for (let i=0;i<all_DOIs.length-1;i++)
@@ -144,7 +156,19 @@ function doi_nodes(html_content)
             if (DOI2.startsWith(DOI1+'/'))
                 DOI_to_remove.push(DOI2)
 
+            if (DOI2.startsWith(DOI1+'?'))
+                DOI_to_remove.push(DOI2)
+
+            if (DOI2.startsWith(DOI1+'&'))
+                DOI_to_remove.push(DOI2)
+
             if (DOI1.startsWith(DOI2+'/'))
+                DOI_to_remove.push(DOI1)
+
+            if (DOI1.startsWith(DOI2+'?'))
+                DOI_to_remove.push(DOI1)
+
+            if (DOI1.startsWith(DOI2+'&'))
                 DOI_to_remove.push(DOI1)
         }
     }
@@ -251,6 +275,10 @@ function background_page_options_set(background_page_settings)
         a.setAttribute('target',"_blank")
         img.setAttribute('style',"height:15px;")
         a.appendChild(img)
+        a.onclick = function() {
+            chrome.runtime.sendMessage({"CreateTab": doi_to_link(doi)});
+            return false;
+        }
         return a
     }
     let final_DOIs = []
@@ -389,6 +417,27 @@ if (libgen_503_url.search('10.') !== -1 && libgen_503_regex.test(libgen_503_url)
     }
 }
 
+function open_scihub_from_libgen_error()
+{
+    var doi_reg = RegExp(/(10(?:\.\d+)+\/[^\s&]+)/g)
+    let libgen_not_found_link = window.location.href
+    if (libgen_not_found_link.search('10.') !== -1 && doi_reg.test(libgen_not_found_link))
+    {
+        let re_ret = libgen_not_found_link.match(doi_reg)
+        if (re_ret && re_ret.length === 1)
+        {
+            let doi = re_ret[0]
+            template =  get_dict_value(background_page_options, "scihub_link", 'https://sci-hub.se/[DOI]')
+            regex = new RegExp(/[<>:"\/\\|?*%]/,'g')
+            let download_filename = doi.replace(regex, '_') + '.pdf'
+            pdf_link = template.replace(/\[DOI\]/g,doi).replace(/\[DOI_FILENAME\]/g,download_filename)
+            const link = document.createElement('a');
+            link.href = pdf_link;
+            link.click();
+        }
+
+    }
+}
 
 //process lib-gen book not found failure giving something like "
 // Error
@@ -401,29 +450,23 @@ if (window.location.href.startsWith(libgen_link_match))
     {
         if (document.getElementsByTagName('h1')[0].nextElementSibling.textContent.trim().startsWith('Book with such MD5 hash isn'))
         {
-            var doi_reg = RegExp(/(10(?:\.\d+)+\/[^\s&]+)/g)
-            let libgen_not_found_link = window.location.href
-            if (libgen_not_found_link.search('10.') !== -1 && doi_reg.test(libgen_not_found_link))
-            {
-                let re_ret = libgen_not_found_link.match(doi_reg)
-                if (re_ret && re_ret.length === 1)
-                {
-                    let doi = re_ret[0]
-                    template =  get_dict_value(background_page_options, "scihub_link", 'https://sci-hub.se/[DOI]')
-                    regex = new RegExp(/[<>:"\/\\|?*%]/,'g')
-                    let download_filename = doi.replace(regex, '_') + '.pdf'
-                    pdf_link = template.replace(/\[DOI\]/g,doi).replace(/\[DOI_FILENAME\]/g,download_filename)
-                    const link = document.createElement('a');
-                    link.href = pdf_link;
-                    link.click();
-                }
-
-            }
+            open_scihub_from_libgen_error()
         }
     }
 }
 
 
+//process lib-gen 502 failure giving something like "
+// 502 Bad Gateway
+libgen_link_match =  get_dict_value(background_page_options, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
+libgen_link_match = libgen_link_match.split(/\[DOI/g)[0]
+if (window.location.href.startsWith(libgen_link_match))
+{
+    if (document.getElementsByTagName('h1')[0].textContent=='502 Bad Gateway')
+    {
+        open_scihub_from_libgen_error()
+    }
+}
 
 //process lib-gen book not found failure giving something like "
 // File not found in DB
