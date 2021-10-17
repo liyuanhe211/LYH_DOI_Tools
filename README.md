@@ -53,14 +53,14 @@ In the popup window, there are a few options:
 
 ## Changelog
 Todo:
-Move the download button of text contents to directly after the doi, instead of the end of the text object. To deal with multiple doi in one text.
 Changing the Lib-Gen page icon to reflect download status
 Automatic update of usable Sci-Hub domains
 
 Current
  * Migrated to Manifest V3
  * Tidy up code
- * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297` existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title` like on [this page](https://www.google.com/search?q=oxazaborolinine).
+ * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
+ * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297`&downloadname=10.1021_acs.orglett.5b00297`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title` like on [this page](https://www.google.com/search?q=oxazaborolinine).
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
