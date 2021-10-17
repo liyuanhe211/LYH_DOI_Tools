@@ -53,8 +53,13 @@ In the popup window, there are a few options:
 
 ## Changelog
 Todo:
+[Solve the duplicated links sep by #](#https://www.google.com/search?q=oxazaborolinine+&newwindow=1&sxsrf=AOaemvKUIW7E514lfqbhTZXX_qFz9-rzyw%3A1634470588122&ei=vApsYb7tBq690PEPg5aV6AY&ved=0ahUKEwi-u7O2rdHzAhWuHjQIHQNLBW0Q4dUDCA4&uact=5&oq=oxazaborolinine+&gs_lcp=Cgdnd3Mtd2l6EANKBAhBGAFQ7RxY7RxgkR5oAXAAeACAAQCIAQCSAQCYAQCgAQHAAQE&sclient=gws-wiz)
 Changing the Lib-Gen page icon to reflect download status
 Automatic update of usable Sci-Hub domains
+
+Current
+ * Migrated to Manifest V3
+ * Tidy up code
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
