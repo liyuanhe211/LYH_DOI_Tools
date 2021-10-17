@@ -56,8 +56,8 @@ Current
  * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
  * Migrated to Manifest V3
  * Tidy up code
- * Deal with situations where DOI is appended with URL markers, like `10.1021/acs.orglett.5b00297#title`
- * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297`&downloadname=10.1021_acs.orglett.5b00297`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title` like on [this page](https://www.google.com/search?q=oxazaborolinine).
+ * Deal with situations where DOI is appended with URL markers, like `10.1021/acs.orglett.5b00297#title`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297#title`&downloadname=10.1021_acs.orglett.5b00297#title`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a>
+ * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297`&downloadname=10.1021_acs.orglett.5b00297`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297#title`&downloadname=10.1021_acs.orglett.5b00297#title`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> like on [this page](https://www.google.com/search?q=oxazaborolinine).
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
@@ -88,3 +88,10 @@ Current
  * Only one DOI is recognized in one bottom-level DOM object. This is both for convenience of programming and for stability. It's quite rare for one string to containing many DOIs without a link. For now, I do not plan to deal with it.
  * If in some case, there is a dot in the assigned DOI, it will be wrongly omiited. This is because it's quite rare for a doi to have a dot in it's end, but it's far more likely that someone writes and article, but puts an period after an doi.
  * By standard, Parenthesis (and other special characters) are allowed in a DOI number, but most publishers don't use it. To prevent DOI recognition been mixed with other text, which DOI is allowed to have parenthesis is dealt with in a white list manner. Now only 10.1002 (Wiley) and 10.1016 (Elsevier) are allowed to have it. So if other publishers also have parenthesis in their DOI, it will not be recognized correctly. If you found one, please submit an issue.
+
+## Explanation of required permissions:
+ * "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
+ * "storage" permission: To store settings like preferred sci-hub domain and other options
+ * "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine
+ * "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S
+ * "alarms" permission: Some of the objects are created later after page load has already finished, e.g. the "Other sources" button on the [Scifinder search reasult page](https://scifinder.cas.org/scifinder/view/scifinder/scifinderExplore.jsf). To address this, some function is run periodically to check if new objects are created. (If you know a batter way do deal with this, please share.)
