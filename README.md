@@ -18,7 +18,7 @@ https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmf
 
 ## Detailed description
 <a name="1000"></a>
-It will add a green download button to every link or text object on the webpage (after it is loaded). The button will create a link to the corresponding page on sci-hub or lib-gen (set by the [popup window](#100)).For example: on the ACS page:
+It will add a green download button to every link or text object on the webpage (after it is loaded). The button will create a link to the corresponding page on sci-hub or lib-gen (set by the [popup window](#100)). For example: on the ACS page:
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137039299-fcd0d68a-22de-4b58-bd52-1667628b85e4.jpg width=400 /></kbd>  <kbd> <img src=https://user-images.githubusercontent.com/18537705/137039332-146e4bf5-9037-47f0-8c0f-baf497467e4d.jpg width=400 /></kbd> </p>
 
 On google search or blog posts:
