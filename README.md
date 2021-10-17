@@ -76,14 +76,14 @@ Current
  * Removed from todo list: 显示出libgen即将关闭信息后、或者开始下载后，再移动页面，并提供选项
  * Removed from todo list: 更换下载选项后刷新当前页面
 
-## Known issue and Todo
+## Todo
  * Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status
  * Automatic update of usable Sci-Hub domains
  * Recognize potential ref info by a trial call to x-mol.com 
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
 
-Known issues that will likely not to be addressed:
+## Known issues that will likely not to be addressed
  * Only one DOI is recognized in one bottom-level DOM object. This is both for convenience of programming and for stability. It's quite rare for one string to containing many DOIs without a link. For now, I do not plan to deal with it.
  * If in some case, there is a dot in the assigned DOI, it will be wrongly omiited. This is because it's quite rare for a doi to have a dot in it's end, but it's far more likely that someone writes and article, but puts an period after an doi.
  * By standard, Parenthesis (and other special characters) are allowed in a DOI number, but most publishers don't use it. To prevent DOI recognition been mixed with other text, which DOI is allowed to have parenthesis is dealt with in a white list manner. Now only 10.1002 (Wiley) and 10.1016 (Elsevier) are allowed to have it. So if other publishers also have parenthesis in their DOI, it will not be recognized correctly. If you found one, please submit an issue.
