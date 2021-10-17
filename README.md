@@ -60,7 +60,7 @@ Current
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
- * Bugfix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only `10.1002` (Wiley) or `10.1016` DOI is allowed to have parentheses (as they will have stupid DOIs like [this](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)), and the parentheses have to be paired. All non-ASCII characters are also not allowed.
+ * Bugfix: Corrected the bug caused by in-line parentheses and in-line dot, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only `10.1002` (Wiley) or `10.1016` DOI is allowed to have parentheses (as they will have stupid DOIs like [this](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)), and the parentheses have to be paired. All non-ASCII characters are also not allowed.
  * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
  * Jump unnecessary waiting for redirection for x-mol.com
  * The batch download buttons will be hidden if no DOI is found on the page.
@@ -83,6 +83,7 @@ Current
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
 
-Known issues that will not be addressed:
+Known issues that will likely not to be addressed:
  * Only one DOI is recognized in one bottom-level DOM object. This is both for convenience of programming and for stability. It's quite rare for one string to containing many DOIs without a link. For now, I do not plan to deal with it.
+ * If in some case, there is a dot in the assigned DOI, it will be wrongly omiited. This is because it's quite rare for a doi to have a dot in it's end, but it's far more likely that someone writes and article, but puts an period after an doi.
  * By standard, Parenthesis (and other special characters) are allowed in a DOI number, but most publishers don't use it. To prevent DOI recognition been mixed with other text, which DOI is allowed to have parenthesis is dealt with in a white list manner. Now only 10.1002 (Wiley) and 10.1016 (Elsevier) are allowed to have it. So if other publishers also have parenthesis in their DOI, it will not be recognized correctly. If you found one, please submit an issue.
