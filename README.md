@@ -94,4 +94,4 @@ Current
  * "storage" permission: To store settings like preferred sci-hub domain and other options
  * "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine
  * "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S
- * "alarms" permission: Some of the objects are created later after page load has already finished, e.g. the "Other sources" button on the [Scifinder search reasult page](https://scifinder.cas.org/scifinder/view/scifinder/scifinderExplore.jsf). To address this, some function is run periodically to check if new objects are created. (If you know a batter way do deal with this, please share.)
+ * ~~"alarms" permission: Some of the objects are created later after page load has already finished, e.g. the "Other sources" button on the [Scifinder search reasult page](https://scifinder.cas.org/scifinder/view/scifinder/scifinderExplore.jsf). To address this, some function is run periodically to check if new objects are created. (If you know a batter way do deal with this, please share.)~~
