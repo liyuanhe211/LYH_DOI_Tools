@@ -52,12 +52,6 @@ In the popup window, there are a few options:
  * The last section lists all the DOIs found on the current page for batch download. Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
 
 ## Changelog
-Todo:
-Changing the Lib-Gen page icon to reflect download status
-Automatic update of usable Sci-Hub domains
-Recognize potential ref info by a trial call to x-mol.com 
-Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
-
 Current
  * Migrated to Manifest V3
  * Tidy up code
@@ -82,6 +76,12 @@ Current
  * Removed from todo list: 显示出libgen即将关闭信息后、或者开始下载后，再移动页面，并提供选项
  * Removed from todo list: 更换下载选项后刷新当前页面
 
-## Known issue
+## Known issue and Todo
+ * Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status
+ * Automatic update of usable Sci-Hub domains
+ * Recognize potential ref info by a trial call to x-mol.com 
+ * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
+
+Known issues that will not be addressed:
  * Only one DOI is recognized in one bottom-level DOM object. This is both for convenience of programming and for stability. It's quite rare for one string to containing many DOIs without a link. For now, I do not plan to deal with it.
  * By standard, Parenthesis (and other special characters) are allowed in a DOI number, but most publishers don't use it. To prevent DOI recognition been mixed with other text, which DOI is allowed to have parenthesis is dealt with in a white list manner. Now only 10.1002 (Wiley) and 10.1016 (Elsevier) are allowed to have it. So if other publishers also have parenthesis in their DOI, it will not be recognized correctly. If you found one, please submit an issue.
