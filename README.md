@@ -81,6 +81,7 @@ Current
  * Automatic update of usable Sci-Hub domains
  * Recognize potential ref info by a trial call to x-mol.com 
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
+ * Missing download icon on the doi text on [this page] (https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)
 
 Known issues that will not be addressed:
  * Only one DOI is recognized in one bottom-level DOM object. This is both for convenience of programming and for stability. It's quite rare for one string to containing many DOIs without a link. For now, I do not plan to deal with it.
