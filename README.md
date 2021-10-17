@@ -72,7 +72,7 @@ Current
 0.2 - 20211014
  * If Lib-Gen returns "file not found in DB", a page from Sci-Hub with the same DOI will be opened.
  * The tab-switching will be inhibited if the current page is not Lib-Gen, Sci-Hub, or SciFinder "Other Sources" page.
- * Bugfix where the download button becomes very large in some pages caused by CSS override. (https://www.science.org/content/blog-post/maoecrystal-v-you-poor-people；https://www.sciencedirect.com/science/article/pii/S095741661730441X)
+ * Bugfix where the download button becomes very large in some pages caused by CSS override like [this page](https://www.science.org/content/blog-post/maoecrystal-v-you-poor-people；https://www.sciencedirect.com/science/article/pii/S095741661730441X).
  * Removed from todo list: 显示出libgen即将关闭信息后、或者开始下载后，再移动页面，并提供选项
  * Removed from todo list: 更换下载选项后刷新当前页面
 
