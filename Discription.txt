@@ -7,3 +7,6 @@ It will also skip several unnecessary clicks like:
 
 Explanation of required permissions:
     "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
+    "storage" permission: To store settings like preferred sci-hub domain and other options
+    "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine
+    "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S

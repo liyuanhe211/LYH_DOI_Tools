@@ -1,146 +1,123 @@
-window.page_DOIs = {}
-window.settings = {}
-window.saved_doi_choices = {}
-window.settings.pdf_link_radio_choice = 'lib-gen'
-window.settings.libgen_link = 'http://libgen.li/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]'
-window.settings.scihub_link = 'https://sci-hub.se/[DOI]'
-window.switch_to_previous_list = []
+importScripts('./lib.js')
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse)
+// set default storage variables
+async function initialization()
+{
+    chrome.contextMenus.create({id:"x_mol_ref_Search",
+                                   title: "Open and Download Selected Citation (Ctrl+Shift+S)",
+                                   contexts:["selection"]});
+
+    let default_settings = {}
+    default_settings.pdf_link_radio_choice = 'lib-gen'
+    default_settings.libgen_link = 'http://libgen.li/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]'
+    default_settings.scihub_link = 'https://sci-hub.se/[DOI]'
+    default_settings.hide_scihub_or_libgen = true
+
+    await set_storage({settings:default_settings})
+    await set_storage({page_DOIs:{}})
+    await set_storage({saved_doi_choices:{}})
+    await set_storage({switch_to_previous_list: []})
+    await set_storage({error_log:[]})
+}
+
+chrome.runtime.onInstalled.addListener(initialization);
+
+
+// Event processor for all content.js messages
+async function event_listener(request, sender, sendResponse)
+{
+    let page_DOIs_storage = await get_storage("page_DOIs")
+    page_DOIs_storage[request.url] = request.DOIs
+    await set_storage({page_DOIs:page_DOIs_storage})
+
+    // create tab from background, this will prevent tab switching
+    if ("CreateTab" in request)
     {
-        window.page_DOIs[request.url] = request.DOIs
-        if (request.message ==="Requrest options")
-        {
-            sendResponse(window.settings)
-            console.log('sending response, ',window.settings)
-        }
-        if ("set_setting" in request)
-        {
-            window.settings[request.set_setting[0]]=request.set_setting[1]
-            console.log("Bkg setting change received:",request.set_setting)
-            console.log(window.settings)
-        }
-        if ("set_setting_if_not_exist" in request)
-        {
-            if (! request.set_setting_if_not_exist[0] in window.settings)
-            {
-                window.settings[request.set_setting_if_not_exist[0]]=request.set_setting_if_not_exist[1]
-                console.log("Bkg setting change received:",request.set_setting_if_not_exist)
-                console.log(window.settings)
-            }
-            else
-            {
-                console.log("Bkg setting change received, but already exist, so omitted:",request.set_setting_if_not_exist)
-                console.log(window.settings)
-            }
-        }
-
-        if ("save_doi_choice" in request)
-        {
-            let [page_url,doi,state] = request.save_doi_choice
-            console.log(page_url in window.saved_doi_choices)
-            window.saved_doi_choices[page_url] = window.saved_doi_choices[page_url] || {}
-            window.saved_doi_choices[page_url][doi] = state
-            console.log("save_doi_choice change received:",request.save_doi_choice)
-            console.log(window.saved_doi_choices)
-        }
-
-        if ("CreateTab" in request)
-        {
-            let url_to_open = request["CreateTab"]
-            console.log("Opening URL: ",url_to_open)
-            chrome.tabs.create({url: url_to_open, active: false})
-        }
-
-        if(request.closeThis)
-        {
-            chrome.tabs.remove(sender.tab.id);
-        }
-
-        if (request.switch_to_previous_tab)
-        {
-            window.switch_to_previous_list.push(request.switch_to_previous_tab)
-            chrome.tabs.query({active: true, currentWindow: true},
-                              function (tabs)
-                              {
-                                  if(tabs.length)
-                                  {
-                                      let tab = tabs[0];
-                                      let current_tab_url = tab.url;
-                                      if (window.switch_to_previous_list.indexOf(current_tab_url)!==-1)
-                                      {
-                                          chrome.tabs.query({currentWindow: true},
-                                                            function (tabsArray)
-                                                            {
-                                                                // If only 1 tab is present, do nothing.
-                                                                if (tabsArray.length === 1) return;
-
-                                                                // Otherwise switch to the previous available tab.
-                                                                // Find index of the currently active tab.
-                                                                let sender_tab_index = null;
-                                                                tabsArray.forEach(function (tab, index)
-                                                                                  {
-                                                                                      if (tab.id === sender.tab.id)
-                                                                                          sender_tab_index = index;
-                                                                                  });
-
-                                                                // Switch to the previous tab.
-                                                                chrome.tabs.update(tabsArray[(sender_tab_index - 1) % tabsArray.length].id, {
-                                                                    active: true
-                                                                });
-                                                            });
-                                      }
-                                  }
-
-                              });
-
-
-        }
-
+        let url_to_open = request["CreateTab"]
+        //console.log("Opening URL: ",url_to_open)
+        await chrome.tabs.create({url: url_to_open, active: false})
     }
-)
 
-chrome.browserAction.onClicked.addListener(
+    // close current tab
+    if(request.closeThis)
+    {
+        await chrome.tabs.remove(sender.tab.id);
+    }
+
+    // effectively hide a tab by switching to previous one
+    if (request.switch_to_previous_tab)
+    {
+        let switch_to_previous_list_storage = await get_storage("switch_to_previous_list")
+        switch_to_previous_list_storage.push(request.switch_to_previous_tab)
+        // this list kept which tab should be allowed to be switch away, such that it will not switch away from normal tabs if the user has switched before the script could react
+        await set_storage({switch_to_previous_list:switch_to_previous_list_storage})
+
+        chrome.tabs.query({active: true, currentWindow: true},
+                          function (tabs)
+                          {
+                              if(tabs.length)
+                              {
+                                  let tab = tabs[0];
+                                  let current_tab_url = tab.url;
+                                  if (switch_to_previous_list_storage.indexOf(current_tab_url)!==-1)
+                                  {
+                                      chrome.tabs.query({currentWindow: true},(tabsArray)=>
+                                      {
+                                          // If only 1 tab is present, do nothing.
+                                          if (tabsArray.length === 1) return;
+                                          // Otherwise switch to the previous available tab.
+                                          // Find index of the currently active tab.
+                                          let sender_tab_index = null;
+                                          tabsArray.forEach(function (tab, index)
+                                                            {
+                                                                if (tab.id === sender.tab.id)
+                                                                    sender_tab_index = index;
+                                                            });
+
+                                          // Switch to the previous tab.
+                                          chrome.tabs.update(tabsArray[(sender_tab_index - 1) % tabsArray.length].id, {
+                                              active: true
+                                          });
+                                      });
+                                  }
+                              }
+
+                          })
+    }
+}
+
+
+chrome.runtime.onMessage.addListener(event_listener)
+chrome.action.onClicked.addListener(
     function (tab)
     {
         chrome.tabs.create({url: 'popup.html'})
     }
 )
 
-
-function set_dict_value(dict,key,value)
-{
-    dict[key]=value
-    console.log("Dict value changed:",dict,key,value)
-}
-
-function set_dict_value_if_not_exist(dict,key,value)
-{
-    if (! key in dict)
-    {
-        set_dict_value(dict,key,value)
-    }
-}
-
 function x_mol_search(keyword)
 {
     chrome.tabs.create({url: "https://www.x-mol.com/q?option="+keyword, active: false});
 }
 
-function x_mol_search_context_menu(info,tab)
-{
-    x_mol_search(info.selectionText);
-}
+//context menu event
+chrome.contextMenus.onClicked.addListener(
+    function (info, tab)
+    {
+        if (info.menuItemId === "x_mol_ref_Search")
+        {
+            x_mol_search(info.selectionText)
+        }
+    });
 
-chrome.contextMenus.create({title: "Open and Download Selected Citation (Ctrl+Shift+S)",
-                           contexts:["selection"],
-                           onclick: x_mol_search_context_menu});
-
+//short cut event
 chrome.commands.onCommand.addListener((command) => {
     if (command === "x_mol_search")
     {
-        console.log('short cut detected')
-        chrome.tabs.executeScript({code: "chrome.runtime.sendMessage({\"CreateTab\": \"https://www.x-mol.com/q?option=\"+window.getSelection().toString()});"});
+        //console.log('short cut detected')
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {x_mol_search:true});
+        });
     }
 });
