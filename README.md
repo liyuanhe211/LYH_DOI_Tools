@@ -7,9 +7,9 @@ https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmf
 
 ## Features
  * [Add a download button to every DOI string or DOI link.](#1000)
- * [Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.](#3000)
- * [Batch download PDFs for all DOI links in one page.](#4000)
- * [Jump unnecessary clicks](#2000)
+ * [Directly download PDF from citation info from context menu or use the shortcut Ctrl+Shift+S.](#3000)
+ * [Batch download PDFs for all DOI found in one page.](#4000)
+ * [Jump unnecessary clicks to make smooth browsing experience:](#2000)
    * **Sci-Hub**: The `Open` button for Sci-Hub download
    * **Lib-Gen**: The `GET` button for Lib-Gen download
    * **Wiley**: The `PDF` button in the STUPID Wiley ePDF page
