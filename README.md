@@ -53,9 +53,10 @@ In the popup window, there are a few options:
 
 ## Changelog
 Current
+ * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
  * Migrated to Manifest V3
  * Tidy up code
- * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
+ * Deal with situations where DOI is appended with URL markers, like `10.1021/acs.orglett.5b00297#title`
  * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297`&downloadname=10.1021_acs.orglett.5b00297`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title` like on [this page](https://www.google.com/search?q=oxazaborolinine).
 
 0.3 - 20211015
