@@ -60,11 +60,11 @@ Automatic update of usable Sci-Hub domains
 Current
  * Migrated to Manifest V3
  * Tidy up code
- * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297` existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title`.
+ * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297` existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title` like on [this page](https://www.google.com/search?q=oxazaborolinine).
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
- * Bugfix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only 10.1002 (Wiley) DOI is allowed to have parentheses, and the parentheses have to be paired. All non-ASCII characters are also not allowed.
+ * Bugfix: Corrected the bug caused by in-line parentheses, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only `10.1002` (Wiley) or `10.1016` DOI is allowed to have parentheses (as they will have stupid DOIs like [this](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)), and the parentheses have to be paired. All non-ASCII characters are also not allowed.
  * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
  * Jump unnecessary waiting for redirection for x-mol.com
  * The batch download buttons will be hidden if no DOI is found on the page.
