@@ -55,6 +55,8 @@ In the popup window, there are a few options:
 Todo:
 Changing the Lib-Gen page icon to reflect download status
 Automatic update of usable Sci-Hub domains
+Recognize potential ref info by a trial call to x-mol.com 
+Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
 
 Current
  * Migrated to Manifest V3
