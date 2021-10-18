@@ -47,7 +47,7 @@ When you select a string containing text for one single reference (e.g. J. Am. C
 In the popup window, there are a few options:
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137781912-f4179fb6-b8cb-4b97-b964-b187d6a1067a.png width=400 /></kbd>  </p>
 
- * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed) or the batch download function below
+ * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed).
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actual DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
  * `Sci-Hub Current Page` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of the current domain name.)
  * The last section lists all the DOIs found on the current page for batch download.
@@ -57,33 +57,33 @@ In the popup window, there are a few options:
 ## Changelog
 Current
  * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
- * Migrated to Manifest V3
- * Tidy up code
- * Deal with situations where DOI is appended with URL markers, like `10.1021/acs.orglett.5b00297#title`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297#title`&downloadname=10.1021_acs.orglett.5b00297#title`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a>
+ * Migrated to Manifest V3.
+ * Tidy up code.
+ * Deal with situations where DOI is appended with URL markers, like `10.1021/acs.orglett.5b00297#title`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297#title`&downloadname=10.1021_acs.orglett.5b00297#title`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a>.
  * Bugfix: Removed duplicate DOIs. For example, if `10.1021/acs.orglett.5b00297`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297`&downloadname=10.1021_acs.orglett.5b00297`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> existed, remove `10.1021/acs.orglett.5b00297/suppl_file/ol5b00297_si_001.pdf` or `10.1021/acs.orglett.5b00297#title`<a href="http://libgen.li/ads.php?doi=10.1021/acs.orglett.5b00297#title`&downloadname=10.1021_acs.orglett.5b00297#title`.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a> like on [this page](https://www.google.com/search?q=oxazaborolinine).
 
 0.3 - 20211015
  * Context menu (or Ctrl+Shift+S) to directly download PDF from citation info.
  * Bugfix: Corrected the bug caused by in-line parentheses and in-line dot, for example, in the text "(Angew. Chem. Int. Ed., DOI: 10.1002/anie.202010431).", the DOI used to be recognized as "10.1002/anie.202010431)." Now only `10.1002` (Wiley) or `10.1016` DOI is allowed to have parentheses (as they will have stupid DOIs like [this](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)), and the parentheses have to be paired. All non-ASCII characters are also not allowed.
  * Added the option to not "Auto hide Sci-Hub or Lib-Gen page".
- * Jump unnecessary waiting for redirection for x-mol.com
+ * Jump unnecessary waiting for redirection for x-mol.com.
  * The batch download buttons will be hidden if no DOI is found on the page.
  * Prevent page swapping in the first place by using the onClick function and the messaging system.
- * Recognize links on Nature pages
- * Bugfix: Decode URI before recognization
- * New required permission: contextMenu, storage
+ * Recognize links on Nature pages.
+ * Bugfix: Decode URI before recognization.
+ * New required permission: contextMenu, storage.
 
 0.2 - 20211014
  * If Lib-Gen returns "file not found in DB", a page from Sci-Hub with the same DOI will be opened.
  * The tab-switching will be inhibited if the current page is not Lib-Gen, Sci-Hub, or SciFinder "Other Sources" page.
  * Bugfix where the download button becomes very large in some pages caused by CSS override like [this page](https://www.science.org/content/blog-post/maoecrystal-v-you-poor-people；https://www.sciencedirect.com/science/article/pii/S095741661730441X).
- * Removed from todo list: 显示出libgen即将关闭信息后、或者开始下载后，再移动页面，并提供选项
- * Removed from todo list: 更换下载选项后刷新当前页面
+ * Removed from todo list: Switch away from Lib-Gen or Sci-Hub after displaying the download message.
+ * Removed from todo list: Refresh page after switching download option.
 
 ## Todo
- * Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status
- * Automatic update of usable Sci-Hub domains
- * Recognize potential ref info by a trial call to x-mol.com 
+ * Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status.
+ * Automatic update of usable Sci-Hub domains.
+ * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
  * Experiment with load-later features, and add download button to scifinder page.
@@ -95,7 +95,7 @@ Current
 
 ## Explanation of required permissions:
  * "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
- * "storage" permission: To store settings like preferred sci-hub domain and other options
- * "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine
- * "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S
+ * "storage" permission: To store settings like preferred sci-hub domain and other options.
+ * "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine.
+ * "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S.
  * ~~"alarms" permission: Some of the objects are created later after page load has already finished, e.g. the "Other sources" button on the [Scifinder search reasult page](https://scifinder.cas.org/scifinder/view/scifinder/scifinderExplore.jsf). To address this, some function is run periodically to check if new objects are created. (If you know a batter way do deal with this, please share.)~~
