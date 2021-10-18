@@ -54,6 +54,9 @@ In the popup window, there are a few options:
  * Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
  * Click `Open Article Pages` will open the selected DOIs with `dx.doi.org`; `Start PDF Downloads` will initiate PDF downloads from Lib-Gen.
 
+## About Pirating Scientific Papers
+Developing this tool doesn't mean I support the piracy of scientific papers, or that I'm against paid publication services (although I definitely believe it's way too overpriced, and that the reviewing duties should be appreciated financially). I personally already have legal access to (nearly) all the papers I need without Sci-Hub or Lib-Gen. However, the experience of downloading a paper is unacceptably tedious, varies from site to site, is unstable, and is poor in UI design. This is especially true for someone who lives off-campus. The purpose of writing this extension is to solely address the user experience problem, and instead of writing a script for every possible publisher (which frequently changes their site), I elect to use a unified approach (Sci-Hub and Lib-Gen). If one day, all publishers have a unified authentication process and have some kind of standard API for paper access, I'm happy to move away from pirate sites.
+
 ## Changelog
 Current
  * Moved the download button of text contents to directly after the doi text (i.e. can be in the middle of a paragraph, instead of the end of the text object).
