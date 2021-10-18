@@ -299,18 +299,8 @@ async function main()
         document.getElementsByTagName('div')[0].className==='alert alert-danger' &&
         document.getElementsByTagName('div')[0].innerText==='File not found in DB')
     {
-        //console.log('LibGen "File not found in DB" error triggered.')
-
-        const doi_reg2 = RegExp(/(10(?:\.\d+)+\/[^\s&]+)/g)
-        let libgen_not_found_link = window.location.href
-        if (libgen_not_found_link.search('10.') !== -1 && doi_reg2.test(libgen_not_found_link))
-        {
-            let re_ret = libgen_not_found_link.match(doi_reg2)
-            if (re_ret && re_ret.length === 1)
-            {
-                await open_libgen_from_DOI(re_ret[0])
-            }
-        }
+        console.log('LibGen "File not found in DB" error triggered.')
+        await open_scihub_from_libgen_error()
     }
 }
 

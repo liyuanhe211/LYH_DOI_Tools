@@ -30,6 +30,7 @@ async function add_doi_urls(active_window_url)
             input.type = 'checkbox'
             input.value = doi
             input.id = doi
+            input.classList.add("largerCheckbox")
             input.checked = await get_doi_select_state(active_window_url, doi)
             // when the selection state has changed, save the result to sync storage
             input.addEventListener("change", async function (event)
@@ -47,7 +48,7 @@ async function add_doi_urls(active_window_url)
 
             let label = document.createElement('a')
             label.textContent = doi
-            label.href = 'dx.doi.org/' + doi
+            label.href = 'https://dx.doi.org/' + doi
             label.onclick = function ()
             {
                 chrome.runtime.sendMessage({"CreateTab": 'https://dx.doi.org/' + label.textContent});
@@ -117,6 +118,7 @@ document.getElementById("select_all").addEventListener("click", select_all, fals
 document.getElementById("select_none").addEventListener("click", select_none, false);
 document.getElementById("toggle_all").addEventListener("click", toggle_all, false);
 document.getElementById("launch").addEventListener("click", launch, false);
+document.getElementById("open_articles").addEventListener("click", open_articles, false);
 document.getElementById("scihub_radio").addEventListener("click", scihub_radio_clicked);
 document.getElementById("libgen_radio").addEventListener("click", libgen_radio_clicked);
 document.getElementById("hide_scihub_or_libgen").addEventListener("click", hide_scihub_or_libgen_clicked);

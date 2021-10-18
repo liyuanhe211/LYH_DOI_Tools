@@ -256,9 +256,16 @@ const open_libgen_from_DOI = async function(doi)
     link.click();
 }
 
+const open_scihub_from_DOI = async function(doi)
+{
+    const link = document.createElement('a');
+    link.href = await doi_to_link(doi,'sci-hub');
+    link.click();
+}
+
 const open_scihub_from_libgen_error = async function()
 {
-    await open_libgen_from_DOI(match_doi(window.location.href),'lib-gen')
+    await open_scihub_from_DOI(match_doi(window.location.href),'lib-gen')
 }
 
 async function set_bkg_settings(key, value)

@@ -23,8 +23,13 @@
 </table>
 <style>
     body {
-        min-width: 450px;
+        min-width: 460px;
     }
+
+     input.largerCheckbox {
+         width: 16px;
+         height: 16px;
+     }
 
     .button {
         border: none;
@@ -34,10 +39,9 @@
         display: inline-block;
         font-size: 13px;
         margin: 4px 2px;
-        width: 105px;
+        width: 145px;
         cursor: pointer;
     }
-
     .button_wide {
         border: none;
         padding: 8px 8px;
@@ -46,7 +50,7 @@
         display: inline-block;
         font-size: 13px;
         margin: 4px 2px;
-        width: 210px;
+        width: 302px;
         cursor: pointer;
     }
 
@@ -69,12 +73,15 @@
 </p>
 <span id="No_DOI">No DOI found in this page (yet).</span>
 <span id="LinkButtons">
-    <p>Batch Download (Ctrl-Click for single ref download):</p>
+    <p>Batch Download (Lib-Gen only):</p>
 <p>
     <button type="button" class="button" id="select_all">Select All</button>
     <button type="button" class="button" id="select_none">Select None</button>
     <button type="button" class="button" id="toggle_all">Toggle All</button>
-    <button type="button" class="button" id="launch">Start Download</button>
+</p>
+<p>
+    <button type="button" class="button" id="open_articles">Open Article Pages</button>
+    <button type="button" class="button" id="launch">Start PDF Downloads</button>
 </p>
 <span id="DOIs"></span>
 <span id="Download queue"></span>

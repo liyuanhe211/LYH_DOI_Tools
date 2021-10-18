@@ -52,11 +52,21 @@ function launch()
 {
     for (let checkbox of document.getElementById('DOIs').getElementsByTagName('input'))
     {
-        console.log(checkbox)
         if (checkbox.checked)
         {
-            console.log(checkbox.value,'checked')
-            doi_to_link(checkbox.value).then((link_from_doi)=>chrome.tabs.create({url: link_from_doi}))
+            doi_to_link(checkbox.value,'lib-gen').then((link_from_doi)=>chrome.runtime.sendMessage({"CreateTab": link_from_doi}));
+        }
+    }
+}
+
+
+function open_articles()
+{
+    for (let checkbox of document.getElementById('DOIs').getElementsByTagName('input'))
+    {
+        if (checkbox.checked)
+        {
+            chrome.runtime.sendMessage({"CreateTab": "https://dx.doi.org/"+checkbox.value})
         }
     }
 }

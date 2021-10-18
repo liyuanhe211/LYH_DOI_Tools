@@ -1,9 +1,17 @@
-A tool to add a Sci-HUB or Lib-Gen download icon to every DOI-link on the page.
+A Chrome extension to add Sci-HUB or Lib-Gen download icons to every DOI-link on the page, with various other small changes to make scientific paper downloading less annoying.
 
-It will also skip several unnecessary clicks like:
-    The Sci-HUB "Open PDF"
-    The STUPID Wiley "ePDF" function
-    The SciFinder "Other Sources" page where you are almost always clicking the "DOI" link.
+User guide and source code: https://github.com/liyuanhe211/LYH_DOI_Tools
+
+Features:
+Add a download button to every DOI string or DOI link.
+Directly download PDF from citation info from context menu or use the shortcut Ctrl+Shift+S.
+Batch download PDFs for all DOI found in one page.
+Jump unnecessary clicks to make smooth browsing experience:
+    Sci-Hub: The Open button for Sci-Hub download
+    Lib-Gen: The GET button for Lib-Gen download
+    Wiley: The PDF button in the STUPID Wiley ePDF page
+    x-mol.com: The totally meaningless waiting period (a few seconds) before redirection when searching references on x-mol.com
+    Scifinder: The need to click the single DOI link when opening Other sources on SciFinder
 
 Explanation of required permissions:
     "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
