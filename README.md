@@ -45,12 +45,14 @@ When you select a string containing text for one single reference (e.g. J. Am. C
 <a name="100"></a>
 <a name="4000"></a>
 In the popup window, there are a few options:
-<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510543-dc3ded1a-cba2-41ea-a07f-611ff1d4226c.png width=400 /></kbd>  </p>
+<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137781912-f4179fb6-b8cb-4b97-b964-b187d6a1067a.png width=400 /></kbd>  </p>
 
  * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed) or the batch download function below
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actual DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
  * `Sci-Hub Current Page` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of the current domain name.)
- * The last section lists all the DOIs found on the current page for batch download. Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
+ * The last section lists all the DOIs found on the current page for batch download.
+ * Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
+ * Click `Open Article Pages` will open the selected DOIs with `dx.doi.org`; `Start PDF Downloads` will initiate PDF downloads from Lib-Gen.
 
 ## Changelog
 Current
