@@ -85,6 +85,7 @@ Current
  * Automatic update of usable Sci-Hub domains.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
+ * Potentially Move `tabs` permission to `activeTabs` permission.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
  * Experiment with load-later features, and add download button to scifinder page.
 
@@ -97,5 +98,5 @@ Current
  * "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
  * "storage" permission: To store settings like preferred sci-hub domain and other options.
  * "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine.
- * "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S.
+ * ~~"scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S.~~
  * ~~"alarms" permission: Some of the objects are created later after page load has already finished, e.g. the "Other sources" button on the [Scifinder search reasult page](https://scifinder.cas.org/scifinder/view/scifinder/scifinderExplore.jsf). To address this, some function is run periodically to check if new objects are created. (If you know a batter way do deal with this, please share.)~~
