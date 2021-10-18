@@ -12,6 +12,7 @@ https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmf
  * [Jump unnecessary clicks to make smooth browsing experience:](#2000)
    * **Sci-Hub**: The `Open` button for Sci-Hub download
    * **Lib-Gen**: The `GET` button for Lib-Gen download
+   * **Lib-Gen**: Auto refresh when `503 Service Temporarily Unavailable` is triggered due to download several files at once (very useful for download large batch of files).
    * **Wiley**: The `PDF` button in the STUPID Wiley ePDF page
    * **x-mol.com**: The totally meaningless waiting period (a few seconds) before redirection when searching references on x-mol.com
    * **Scifinder**: The need to click the single DOI link when opening `Other sources` on SciFinder
