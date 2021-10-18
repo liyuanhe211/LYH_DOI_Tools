@@ -2,7 +2,7 @@
 A Chrome extension to add Sci-HUB or Lib-Gen download icons to every DOI-link on the page, with various other small changes to make scientific paper downloading less annoying.
 
 ## Installation
-Either load this folder as an unpacked extension in Chrome Developer Mode, or install the version from Chrome store (with a few days review lag):
+Either load this folder as an unpacked extension in Chrome Developer Mode, or install the version from Chrome store (with a few days of review lag):
 https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmfglaijkic
 
 ## Features
