@@ -92,6 +92,7 @@ Current
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * Potentially Move `tabs` permission to `activeTabs` permission.
+ * Make popup.html less ugly.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
  * Experiment with load-later features, and add download button to scifinder page.
 
