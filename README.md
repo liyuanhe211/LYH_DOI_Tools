@@ -18,6 +18,7 @@ https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmf
    * **Scifinder**: The need to click the single DOI link when opening `Other sources` on SciFinder.
 
 ## Detailed description
+### Adds download icons
 <a name="1000"></a>
 It will add a green download button to every link or text object on the webpage (after it is loaded). The button will create a link to the corresponding page on sci-hub or lib-gen (set by the [popup window](#100)). For example: on the ACS page:
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137039299-fcd0d68a-22de-4b58-bd52-1667628b85e4.jpg width=400 /></kbd>  <kbd> <img src=https://user-images.githubusercontent.com/18537705/137039332-146e4bf5-9037-47f0-8c0f-baf497467e4d.jpg width=400 /></kbd> </p>
@@ -26,6 +27,7 @@ On google search or blog posts:
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137039310-ea51da1c-7797-47df-932f-f4650a9af493.jpg width=400 /></kbd>  <kbd> <img src=https://user-images.githubusercontent.com/18537705/137039425-f35adae2-6e9a-426d-9ee0-78084c1e87eb.png width=400 /></kbd>  </p>
 
 ##
+### Jump unnecessary clicks
 <a name="2000"></a>
 It will also jump the unnecessary steps needed to download pdf on the Sci-Hub or Lib-Gen websites (saving a few clicks). Because of this, the corresponding pages will be hidden (switched to the previous tab), such that the only thing you need to do is wait 1~2 seconds, and a PDF download task will be opened (the tab-switching could be turned off in the [popup window](#100)).
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137039324-2e04cb56-56aa-49d1-ad5c-7b7fa362e688.jpg width=400 /></kbd> <kbd><img src=https://user-images.githubusercontent.com/18537705/137039338-7d479a77-5ec2-4519-a5a0-afe4fff78c68.jpg width=400 /></kbd>  </p>
@@ -36,12 +38,13 @@ For this to work properly, you probably need to set the PDF download option of c
 Similarly, it will jump a few other unnecessary steps on `Wiley`, `x-mol.com`, and `Scifinder`. (Hopefully) you won't notice what's missing.
 
 ##
+### Citation search and download
 <a name="3000"></a>
 When you select a string containing text for one single reference (e.g. J. Am. Chem. Soc. 2013, 135(14), 5258), right-click, and select `Open and Download Selected Citation`, the corresponding page for the reference will be opened (powered by x-mol.com), with the file downloaded (powered by whichever site you selected). This function can also be called by selecting the text and press the shortcut Ctrl+Shift+S (Search). This makes it quite convenient for downloading many references with only ref info.
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510716-4964c0ae-d59b-49bc-91a5-52f1bf7ca905.png width=400 /></kbd> </p>
 
 ##
-
+### The popup page and batch ref download
 <a name="100"></a>
 <a name="4000"></a>
 In the popup window, there are a few options:
