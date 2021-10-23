@@ -64,6 +64,7 @@ Developing this tool doesn't mean I support the piracy of scientific papers, or 
 Current
  * Tidy up popup page.
  * Support drag-select in the batch download checkbox selection.
+ * Removed unnecessary Sci-Hub and Lib-Gen jumps.
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
