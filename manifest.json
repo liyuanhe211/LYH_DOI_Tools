@@ -1,13 +1,12 @@
 {
     "name": "LYH DOI Tools",
-    "version": "0.4",
+    "version": "0.5",
     "manifest_version": 3,
     "description": "LYH DOI Tools",
     "permissions": [
         "tabs",
         "contextMenus",
-        "storage",
-        "scripting"
+        "storage"
     ],
     "host_permissions": [
         "http://*/*",
@@ -24,7 +23,7 @@
         {
             "suggested_key":
             {
-                "windows": "Ctrl+Shift+Y"
+                "default": "Ctrl+Shift+L"
             }
         }
     },
