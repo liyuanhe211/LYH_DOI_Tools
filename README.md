@@ -65,6 +65,7 @@ Current
  * Tidy up popup page.
  * Support drag-select in the batch download checkbox selection.
  * Removed unnecessary Sci-Hub and Lib-Gen jumps as the page-opening function has been migrated to background worker.
+ * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
@@ -95,7 +96,7 @@ Current
  * Removed from todo list: Refresh page after switching download option.
 
 ## Todo
- * Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status.
+ * ~~Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status.
  * Automatic update of usable Sci-Hub domains.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
