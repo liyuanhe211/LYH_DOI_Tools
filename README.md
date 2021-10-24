@@ -48,11 +48,11 @@ When you select a string containing text for one single reference (e.g. J. Am. C
 <a name="100"></a>
 <a name="4000"></a>
 In the popup window, there are a few options:
-<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137781912-f4179fb6-b8cb-4b97-b964-b187d6a1067a.png width=400 /></kbd>  </p>
+<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/138583363-f2f2713c-808b-4dfc-9419-937a31774c58.png width=400 /></kbd>  </p>
 
  * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed).
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actual DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
- * `Sci-Hub Current Page` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of the current domain name.)
+ * `Open this page in Sci-Hub` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of the current domain name.)
  * The last section lists all the DOIs found on the current page for batch download.
  * Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
  * Click `Open Article Pages` will open the selected DOIs with `dx.doi.org`; `Start PDF Downloads` will initiate PDF downloads from Lib-Gen.
@@ -65,7 +65,7 @@ Current
  * Tidy up popup page.
  * Support drag-select in the batch download checkbox selection.
  * Removed unnecessary Sci-Hub and Lib-Gen jumps as the page-opening function has been migrated to background worker.
- * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K
+ * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K<a href="http://libgen.li/ads.php?doi=10.1039/C6CC05568K&downloadname=10.1039_C6CC05568K.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a>
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
