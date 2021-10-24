@@ -54,6 +54,7 @@ In the popup window, there are a few options:
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actual DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
  * `Open this page in Sci-Hub` will open the current page in Sci-Hub. (This is independent of DOI. It just adds ".sci-hub.xx" to the end of the current domain name.)
  * The last section lists all the DOIs found on the current page for batch download.
+ * You can select all the DOIs that you would like to open (note that mouse-drag over the checkboxes are supported).
  * Be gentle with this function. Download too many papers at once could get you into the banned IP list on the Sci-Hub or Lib-Gen website.
  * Click `Open Article Pages` will open the selected DOIs with `dx.doi.org`; `Start PDF Downloads` will initiate PDF downloads from Lib-Gen.
 
