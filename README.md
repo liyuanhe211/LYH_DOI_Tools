@@ -48,7 +48,7 @@ When you select a string containing text for one single reference (e.g. J. Am. C
 <a name="100"></a>
 <a name="4000"></a>
 In the popup window, there are a few options:
-<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/138583363-f2f2713c-808b-4dfc-9419-937a31774c58.png width=400 /></kbd>  </p>
+<p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/138583363-f2f2713c-808b-4dfc-9419-937a31774c58.png width=300 /></kbd>  </p>
 
  * Choose whether to use Sci-Hub or Lib-Gen. This will affect the download button (refresh needed).
  * Set the Sci-Hub or Lib-Gen address, in case the domain has changed. `DOI` in the address will be replaced with the actual DOI, and  `DOI_FILENAME` will be replaced with a filename-friendly version of the DOI (but this may not work, depends on how the Lib-Gen itself works.
