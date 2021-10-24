@@ -66,6 +66,7 @@ Current
  * Support drag-select in the batch download checkbox selection.
  * Removed unnecessary Sci-Hub and Lib-Gen jumps as the page-opening function has been migrated to background worker.
  * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K
+ * Fixed bug where the text node replacement is performed multiple times. This caused by direct manipulation of innerHTML(), which should be avoided. It has been solved by using textNode.splitText()
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
