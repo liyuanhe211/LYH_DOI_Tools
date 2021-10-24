@@ -98,6 +98,7 @@ Current
 ## Todo
  * ~~Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed. * Changing the Lib-Gen page icon to reflect download status.
  * Automatic update of usable Sci-Hub domains.
+ * Move to jQuery.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * ~~Potentially Move `tabs` permission to `activeTabs` permission.
