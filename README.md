@@ -65,7 +65,7 @@ Current
  * Tidy up popup page.
  * Support drag-select in the batch download checkbox selection.
  * Removed unnecessary Sci-Hub and Lib-Gen jumps as the page-opening function has been migrated to background worker.
- * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K<a href="http://libgen.li/ads.php?doi=10.1039/C6CC05568K&downloadname=10.1039_C6CC05568K.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://jkbmdggbfmipfomnpaihcnkglffcoeak/images/Download_button.png" style="height:15px;"></a>
+ * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
