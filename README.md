@@ -109,7 +109,7 @@ Current
  * Move to jQuery.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
- * ~~Potentially Move `tabs` permission to `activeTabs` permission.
+ * ~~Potentially Move `tabs` permission to `activeTabs` permission.~~
  * Solve the problem where the drag-select will omit the first selection (probably by detecting the mouse down and mouse up event separately, and deal with whether they are on the same object.
  * ~~Missing download icon on the doi text on [this page](https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C)~~
  * Experiment with load-later features, and add download button to scifinder page.
