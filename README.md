@@ -105,6 +105,7 @@ Current
  * Integrate https://doi.crossref.org/simpleTextQuery, https://search.crossref.org/ or similar CrossRef API. 
  * Automatic update of usable Sci-Hub domains.
  * Download RIS or generate reference format files.
+ * X-mol jump seems to not work anymore (but opening the lib-gen page still works?).
  * Move to jQuery.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
