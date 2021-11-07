@@ -70,6 +70,7 @@ Current
  * DOI match for http://xlink.rsc.org/?DOI=C6CC05568K --> 10.1039/C6CC05568K<a href="http://libgen.li/ads.php?doi=10.1039/C6CC05568K&downloadname=10.1039_C6CC05568K.pdf" target="_blank" class="LYH_download_icon"><img src="chrome-extension://khmjbohiflimlmijcimkbpmfglaijkic/images/Download_button.png" style="height:15px;"></a>
  * Bigfix: Fixed bug where the text node replacement is performed multiple times. This caused by direct manipulation of innerHTML(), which should be avoided. It has been solved by using textNode.splitText()
  * Support Reaxys Full Text Autojump.
+ * Bugfix: Fixed X-mol jump sometimes doesn't work.
 
 0.5 - 20211023
  * Bugfix: Forgot to set the shortcut to Mac version, causing a failed installation on Mac. This is corrected.
@@ -106,7 +107,6 @@ Current
  * Integrate https://doi.crossref.org/simpleTextQuery, https://search.crossref.org/ or similar CrossRef API. 
  * Automatic update of usable Sci-Hub domains.
  * Download RIS or generate reference format files.
- * X-mol jump seems to not work anymore (but opening the lib-gen page still works?).
  * Move to jQuery.
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
