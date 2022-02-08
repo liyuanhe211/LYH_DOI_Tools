@@ -45,7 +45,7 @@ When you select a string containing text for one single reference (e.g. J. Am. C
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510716-4964c0ae-d59b-49bc-91a5-52f1bf7ca905.png width=400 /></kbd> </p>
 
 ##
-### Adds a few buttons to apps.crossref.org/SimpleTextQuery
+### Adds a few buttons to apps.crossref.org/SimpleTextQuery for in-place cleanup
 <a name="5000"></a>
 Reference list copied from PDFs are usually quite messy. A few buttons were added to apps.crossref.org/SimpleTextQuery for in-place clean-up. Combined with other functions of this extension, it could be used to download the full reference list of a paper.
 
