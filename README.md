@@ -113,11 +113,12 @@ Current
  * ~~Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed.~~
  * ~~Changing the Lib-Gen page icon to reflect download status.~~
  * (Probably solved, require long term testing by inspecting popup.html) Solve the "Unchecked runtime.lastError: QUOTA_BYTES_PER_ITEM quota exceeded" problem, which seems to appear after multiple pages are loaded.
- * Query https://doi.crossref.org/simpleTextQuery for 10.1002/ange.19370502804 gives two duplicated download button.
- * Integrate https://doi.crossref.org/simpleTextQuery, https://search.crossref.org/ or similar CrossRef API. 
+ * ~~Query https://doi.crossref.org/simpleTextQuery for 10.1002/ange.19370502804 gives two duplicated download button.~~
+ * ~~Integrate https://doi.crossref.org/simpleTextQuery, https://search.crossref.org/ or similar CrossRef API. ~~
  * Automatic update of usable Sci-Hub domains.
+ * Scifinder-n support.
  * Download RIS or generate reference format files.
- * Move to jQuery.
+ * ~~Move to jQuery.~~
  * Recognize potential ref info by a trial call to x-mol.com.
  * Add a manual input in the popup.html (probably by create a fake page?) to use the functions of this extention on texts copied from offline contents.
  * ~~Potentially Move `tabs` permission to `activeTabs` permission.~~
