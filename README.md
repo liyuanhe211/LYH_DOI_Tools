@@ -9,6 +9,7 @@ https://chrome.google.com/webstore/detail/LYH_DOI_Tools/khmjbohiflimlmijcimkbpmf
  * [Add a download button to every DOI string or DOI link.](#1000)
  * [Directly download PDF from citation info from context menu or use the shortcut Ctrl+Shift+S.](#3000)
  * [Batch download PDFs for all DOI found in one page.](#4000)
+ * [Adds a few buttons to apps.crossref.org/SimpleTextQuery to recognize reference list copied from PDFs](#5000)
  * [Jump unnecessary clicks to make smooth browsing experience:](#2000)
    * **Sci-Hub**: The `Open` button for Sci-Hub download.
    * **Lib-Gen**: The `GET` button for Lib-Gen download.
@@ -42,6 +43,12 @@ Similarly, it will jump a few other unnecessary steps on `Wiley`, `x-mol.com`, a
 <a name="3000"></a>
 When you select a string containing text for one single reference (e.g. J. Am. Chem. Soc. 2013, 135(14), 5258), right-click, and select `Open and Download Selected Citation`, the corresponding page for the reference will be opened (powered by x-mol.com), with the file downloaded (powered by whichever site you selected). This function can also be called by selecting the text and press the shortcut Ctrl+Shift+S (Search). This makes it quite convenient for downloading many references with only ref info.
 <p align="center"><kbd> <img src=https://user-images.githubusercontent.com/18537705/137510716-4964c0ae-d59b-49bc-91a5-52f1bf7ca905.png width=400 /></kbd> </p>
+
+##
+### Adds a few buttons to apps.crossref.org/SimpleTextQuery
+<a name="5000"></a>
+Reference list copied from PDFs are usually quite messy. A few buttons were added to apps.crossref.org/SimpleTextQuery for in-place clean-up.
+![image](https://user-images.githubusercontent.com/18537705/153011679-1e696065-dcfb-4921-b41f-eff9f357eb6c.png)
 
 ##
 ### The popup page and batch ref download
