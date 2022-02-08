@@ -1,91 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="style.css"/>
 <head>
     <meta charset="UTF-8">
     <title>LYH DOI Tools</title>
 </head>
 <body>
 <table align="left">
+    <colgroup>
+        <col style="width: 33%;">
+        <col style="width: 16%;">
+        <col style="width: 16%;">
+        <col style="width: 33%;">
+        <col style="width: 4%;">
+    </colgroup>
+
+    <tbody>
     <tr>
-        <th><input type="radio" id="scihub_radio" name="domain_choice" value="scihub_radio"></th>
-        <th>Sci-Hub domain:</th>
-        <th><input type="text" id="scihub_domain" class="web_url_lineinput" name="scihub_domain" value=""><br></th>
+        <td colspan="5" style="height:4px;background-color: #eceefd;">
+    </tr>
+    <tr style="background-color: #eceefd;">
+        <td>
+            <button type="button" class="element_height button_unchecked" id="scihub_radio">Use Sci-Hub</button>
+        </td>
+        <td colspan="3"><input type="text" id="scihub_domain" class="element_height lineinput" name="scihub_domain" value=""><br></td>
+        <td style="background-color: #eceefd;"></td>
+    </tr>
+    <tr style="background-color: #eceefd;">
+        <td>
+            <button type="button" class="element_height button_unchecked" id="libgen_radio">Use Lib-Gen</button>
+        </td>
+        <td colspan="3"><input type="text" id="libgen_domain" class="element_height lineinput" name="libgen_domain" value=""><br></td>
+        <td style="background-color: #eceefd;"></td>
+    </tr>
+    <tr style="background-color: #eceefd; ">
+        <td colspan="4">
+            <button type="button" class="element_height button_unchecked" id="auto_close_scihub_or_libgen">Auto close download pages</button>
+        </td>
+        <td style="background-color: #eceefd;"></td>
     </tr>
     <tr>
-        <th><input type="radio" id="libgen_radio" name="domain_choice" value="libgen_radio"></th>
-        <th>Lib-Gen domain:</th>
-        <th><input type="text" id="libgen_domain" class="web_url_lineinput" name="libgen_domain" value=""><br></th>
+        <td colspan="5" style="height:4px;background-color: #eceefd; ">
     </tr>
     <tr>
-        <th><input type="checkbox" id="hide_scihub_or_libgen" name="hide_scihub_or_libgen" value="hide_scihub_or_libgen" checked></th>
-        <th colspan="2" align="left">Auto hide Sci-Hub or Lib-Gen page</th>
+        <td colspan="5" style="height:4px;background-color: #f4fff4;">
     </tr>
+    <tr>
+        <td colspan="4" style="background-color: #f4fff4;">
+            <button type="button" class="element_height button_unchecked" id="Sci_HUB_this_page">Open this page in Sci-Hub</button>
+        </td>
+        <td style="background-color: #f4fff4;"></td>
+    </tr>
+    <tr>
+        <td colspan="4" style="background-color: #f4fff4;height:4px;">
+    </tr>
+    <tr>
+        <td colspan="5" style="height:4px;background-color: #fffef4;">
+    </tr>
+    <tr>
+        <td colspan="3" style="background-color: #fffef4;">
+            <input type="text" id="download_by_DOI" class="element_height lineinput" name="download_by_DOI" value="" style="text-align:center" placeholder="Download single DOI. [Enter]">
+        </td>
+        <td colspan="1" style="background-color: #fffef4;">
+            <button type="button" class="element_height button_unchecked" id="batch_ref_query">Batch Query</button>
+        </td>
+        <td style="background-color: #fffef4;"></td>
+    </tr>
+<!--    <tr>-->
+<!--        <td colspan="3"><input type="text" id="single_ref_download_input" class="element_height lineinput" name="single_ref_download_input" value="e.g. Angew. Chem. Int. Ed. 2011, 50, 7373."><br></td>-->
+<!--        <td>-->
+<!--            <button type="button" class="element_height button_unchecked" id="single_ref_button">Download Ref</button>-->
+<!--        </td>-->
+<!--        <td style="background-color: #fffef4;"></td>-->
+<!--    </tr>-->
+
+    <tr>
+        <td colspan="4" style="background-color: #fffef4;height:4px;">
+    </tr>
+    <tr>
+        <td colspan="4" style="height:4px;">
+    </tr>
+    <tr id="Batch_Button_Row">
+        <td colspan="2">
+            <button type="button" class="element_height button_unchecked" id="open_articles">Open publisher pages</button>
+        </td>
+        <td colspan="2">
+            <button type="button" class="element_height button_unchecked" id="launch">Start PDF downloads</button>
+        </td>
+
+    </tr>
+    <tr id="Selection_Row">
+        <td>
+            <button type="button" class="element_height button_unchecked" id="select_all">Select all</button>
+        </td>
+        <td colspan="2">
+            <button type="button" class="element_height button_unchecked" id="select_none">Select none</button>
+        </td>
+        <td>
+            <button type="button" class="element_height button_unchecked" id="toggle_all">Toggle all</button>
+        </td>
+    </tr>
+    <tr id="DOI_status">
+        <td colspan="4" align="center" id="DOI_status_cell">No DOI found in this page (yet)</td>
+    </tr>
+    <tr id="DOI_links_row">
+        <td colspan="4" id="DOI_links_cell"></td>
+    </tr>
+    </tbody>
 </table>
-<style>
-    body {
-        min-width: 460px;
-    }
-
-     input.largerCheckbox {
-         width: 16px;
-         height: 16px;
-     }
-
-    .button {
-        border: none;
-        padding: 8px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 13px;
-        margin: 4px 2px;
-        width: 145px;
-        cursor: pointer;
-    }
-    .button_wide {
-        border: none;
-        padding: 8px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 13px;
-        margin: 4px 2px;
-        width: 302px;
-        cursor: pointer;
-    }
-
-    .web_url_lineinput {
-        min-width: 300px;
-    }
-</style>
-<!--<p>-->
-<!--    <button type="button" class="button" id="show_filters" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"-->
-<!--            aria-controls="collapseExample">-->
-<!--        Show Filters-->
-<!--    </button>-->
-<!--</p>-->
-<!--<div class="collapse" id="collapseExample">-->
-<!--    <textarea id="filter_textarea" name="filter_textarea" rows="10" cols="50">-->
-<!--    </textarea>-->
-<!--</div>-->
-<p>
-    <button type="button" class="button_wide" id="Sci_HUB_this_page">Sci-Hub Current Page</button>
-</p>
-<span id="No_DOI">No DOI found in this page (yet).</span>
-<span id="LinkButtons">
-    <p>Batch Download (Lib-Gen only):</p>
-<p>
-    <button type="button" class="button" id="select_all">Select All</button>
-    <button type="button" class="button" id="select_none">Select None</button>
-    <button type="button" class="button" id="toggle_all">Toggle All</button>
-</p>
-<p>
-    <button type="button" class="button" id="open_articles">Open Article Pages</button>
-    <button type="button" class="button" id="launch">Start PDF Downloads</button>
-</p>
-<span id="DOIs"></span>
-<span id="Download queue"></span>
-</span>
 <script src="lib.js" charset="utf-8"></script>
 <script src="popup_lib.js" charset="utf-8"></script>
 <script src="popup.js" charset="utf-8"></script>

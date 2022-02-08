@@ -27,7 +27,6 @@ async function main()
         } while (node)
 
         let available_resources_table = title_node.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling
-        //console.log(available_resources_table.getElementsByTagName('a'))
         for (let element of available_resources_table.getElementsByTagName('a'))
         {
             if ('href' in element)
@@ -35,12 +34,8 @@ async function main()
                 let a_url = new URL(element['href'])
                 let DOI_url = a_url.searchParams.get('URL')
                 let scihub_or_libgen_url = await doi_to_link(match_doi(DOI_url))
-                //console.log("Sending CreateTab Message:", {"CreateTab": scihub_or_libgen_url})
                 chrome.runtime.sendMessage({"CreateTab": scihub_or_libgen_url});
-                //console.log("Clicking,",a_url)
-                let url_processing_link = document.createElement('a');
-                url_processing_link.href = a_url.href
-                url_processing_link.click();
+                location.replace(a_url.href)
             }
         }
         chrome.runtime.sendMessage({switch_to_previous_tab: window.location.href});

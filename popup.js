@@ -9,27 +9,50 @@ async function add_doi_urls(active_window_url)
     {
         let url_processing = new URL(active_window_url)
         url_processing.hostname = url_processing.hostname + '.' + scihub_domain.hostname
-        let url_processing_link = document.createElement('a');
-        url_processing_link.href = url_processing.href;
         chrome.runtime.sendMessage({"CreateTab": url_processing.href});
-        url_processing_link.click();
+        location.replace(url_processing.href)
+    })
+
+    document.getElementById('batch_ref_query').addEventListener('click', function ()
+    {
+        chrome.runtime.sendMessage({"CreateTab": "https://apps.crossref.org/SimpleTextQuery"});
+    })
+
+    document.getElementById('download_by_DOI').addEventListener('keydown', async function (keyPress)
+    {
+        if(keyPress.keyCode == 13) {
+            let DOI_input = document.getElementById('download_by_DOI').value
+            let link_from_doi = await doi_to_link(DOI_input)
+            chrome.runtime.sendMessage({"CreateTab": link_from_doi});
+        }
     })
 
     // add links for every doi on the page
-    let page_DOIs_storage = await get_storage('page_DOIs')
+    // let page_DOIs_storage = await get_storage('page_DOIs')
     let has_links = false
-    if (active_window_url in page_DOIs_storage)
+
+    let current_page_DOIs = await get_page_DOIs(active_window_url)
+    if (current_page_DOIs.length!==0)
     {
-        console.log(page_DOIs_storage[active_window_url])
-        console.log(page_DOIs_storage[active_window_url].length)
-        for (let doi of page_DOIs_storage[active_window_url])
+        // console.log(current_page_DOIs)
+        console.log("Number of DOIs found on this page:",current_page_DOIs.length)
+        for (let doi of current_page_DOIs)
         {
-            console.log(doi)
+            console.log("Creating entry:",doi)
             has_links = true
             let input = document.createElement('input')
             input.type = 'checkbox'
             input.value = doi
             input.id = doi
+            input.onmouseover = function ()
+            {
+                // console.log("mouse over")
+                // console.log(window.mouseDown)
+                if (window.mouseDown)
+                {
+                    input.checked = !input.checked
+                }
+            }
             input.classList.add("largerCheckbox")
             input.checked = await get_doi_select_state(active_window_url, doi)
             // when the selection state has changed, save the result to sync storage
@@ -49,44 +72,34 @@ async function add_doi_urls(active_window_url)
             let label = document.createElement('a')
             label.textContent = doi
             label.href = 'https://dx.doi.org/' + doi
+            label.setAttribute("style","font-size:12px;line-height:13px")
             label.onclick = function ()
             {
                 chrome.runtime.sendMessage({"CreateTab": 'https://dx.doi.org/' + label.textContent});
                 return false;
             }
 
-            let img_button = document.createElement('a')
-            let download_button_img_src = ""
-            download_button_img_src = chrome.runtime.getURL("images/Download_button.png")
-            let link_from_doi = await doi_to_link(label.textContent)
-            img_button.setAttribute('href', link_from_doi)
-            let img = document.createElement("img");
-            img.setAttribute("src", download_button_img_src)
-            img.setAttribute('style', "height:15px;")
-            img_button.appendChild(img)
-            img_button.onclick = function ()
-            {
-                chrome.runtime.sendMessage({"CreateTab": link_from_doi});
-                return false;
-            }
-
+            let icon = await create_download_icon(label.textContent)
             let br = document.createElement('br')
-            document.getElementById('DOIs').appendChild(input)
-            document.getElementById('DOIs').appendChild(img_button)
-            document.getElementById('DOIs').appendChild(label)
-            document.getElementById('DOIs').appendChild(br)
+            document.getElementById('DOI_links_cell').appendChild(input)
+            document.getElementById('DOI_links_cell').appendChild(icon)
+            document.getElementById('DOI_links_cell').appendChild(label)
+            document.getElementById('DOI_links_cell').appendChild(br)
         }
     }
 
     if (!has_links)
     {
-        document.getElementById("LinkButtons").style.visibility = 'hidden'
-        document.getElementById("No_DOI").style.visibility = 'visible'
+        document.getElementById('DOI_status_cell').innerHTML="No DOI found in this page (yet)"
+        document.getElementById('DOI_status').style.display = "";
+        document.getElementById("Selection_Row").style.display = "none"
+        document.getElementById("Batch_Button_Row").style.display = "none"
     }
     else
     {
-        document.getElementById("LinkButtons").style.visibility = 'visible'
-        document.getElementById("No_DOI").style.visibility = 'hidden'
+        document.getElementById('DOI_status').style.display = "none"
+        document.getElementById("Selection_Row").style.display = ""
+        document.getElementById("Batch_Button_Row").style.display = ""
     }
 }
 
@@ -94,9 +107,9 @@ async function add_doi_urls(active_window_url)
 async function main()
 {
     let settings_storage = await get_storage('settings')
-    let pdf_link_radio_choice = get_dict_value(settings_storage, "pdf_link_radio_choice", 'sci-hub')
-    let scihub_link = get_dict_value(settings_storage, "scihub_link", 'https://sci-hub.se/[DOI]')
-    let libgen_link = get_dict_value(settings_storage, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
+    let pdf_link_radio_choice = settings_storage["pdf_link_radio_choice"]
+    let scihub_link = settings_storage["scihub_link"]
+    let libgen_link = settings_storage["libgen_link"]
 
     document.getElementById('scihub_domain').value = scihub_link
     document.getElementById('libgen_domain').value = libgen_link
@@ -110,24 +123,5 @@ async function main()
     }
 }
 
-document.getElementById("libgen_domain").addEventListener('input', libgen_domain_changed);
-document.getElementById("libgen_domain").addEventListener('propertychange', libgen_domain_changed);
-document.getElementById("scihub_domain").addEventListener('input', scihub_domain_changed);
-document.getElementById("scihub_domain").addEventListener('propertychange', scihub_domain_changed);
-document.getElementById("select_all").addEventListener("click", select_all, false);
-document.getElementById("select_none").addEventListener("click", select_none, false);
-document.getElementById("toggle_all").addEventListener("click", toggle_all, false);
-document.getElementById("launch").addEventListener("click", launch, false);
-document.getElementById("open_articles").addEventListener("click", open_articles, false);
-document.getElementById("scihub_radio").addEventListener("click", scihub_radio_clicked);
-document.getElementById("libgen_radio").addEventListener("click", libgen_radio_clicked);
-document.getElementById("hide_scihub_or_libgen").addEventListener("click", hide_scihub_or_libgen_clicked);
-document.addEventListener('DOMContentLoaded', function ()
-{
-    getCurrentTabUrl(async function (url)
-                     {
-                         await add_doi_urls(url);
-                     });
-});
-
-main().then(function (messages) {console.log(messages)})
+main()
+    // .then(function (messages) {console.log(messages)})

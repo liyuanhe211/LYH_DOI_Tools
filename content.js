@@ -10,8 +10,16 @@ function filter(A)
     }
     if (window.location.href.startsWith("https://pubs.acs.org/"))
     {
-        if (A.href.search('/doi/suppl')!==-1)
+        if (A.href &&
+            A.href.search('/doi/suppl')!==-1)
             return true
+    }
+
+    let URL_object = new URL(window.location.href)
+    if (URL_object.hostname==="github.com" &&
+        URL_object.pathname.split('/')[3]==='edit')
+    {
+        return true
     }
 }
 
@@ -42,9 +50,7 @@ async function main()
     while (node)
     {
         // text nodes
-        if (node.nodeType === 3 &&
-            node.parentElement.tagName.toLowerCase() !== 'script' &&
-            node.textContent.trim())
+        if (is_valid_text_node(node))
         {
             let text = node.textContent
             let matched_doi = match_doi(text)
@@ -58,7 +64,8 @@ async function main()
         else if (typeof node.getAttribute == "function" && node.getAttribute("href"))
         {
             let href = node.getAttribute("href")
-            let matched_doi = match_doi(decodeURIComponent(href))
+            let matched_doi = match_doi(href)
+
             if (matched_doi)
             {
                 ret_href_nodes.push(node)
@@ -123,12 +130,12 @@ async function main()
     let final_DOIs = []
     let final_DOIs_with_position = [] // for sorting the DOI so the DOI list has the same order as the document
     let final_DOIs_sorted = [] // for sorting the DOI so the DOI list has the same order as the document
-    let x_mol_processed_links = [] // record which link has been processed by x-mol, there might be duplicated links
 
     // add buttons for text nodes first
     for (let i=0;i<ret_text_nodes.length;i++)
     {
         let text_node = ret_text_nodes[i]
+        // console.log(text_node)
         if (text_node)
         {
             let doi = ret_text_DOIs[i]
@@ -144,24 +151,43 @@ async function main()
             if (! processed_nodes.includes(A))
             {
                 // if it is already sci-hub or lib-gen page, there is no need to add the icons again
-                if (!already_is_download_page())
+                if (!await already_is_download_page())
                 {
                     let download_icon_html = await create_download_icon(doi)
-
                     // check that there has a successful RegExp match, sometimes there isn't a match (special character in the DOI like https://onlinelibrary.wiley.com/doi/10.1002/1521-3773%2820001117%2939%3A22%3C3964%3A%3AAID-ANIE3964%3E3.0.CO%3B2-C) in that case, it will be just add to the end
-                    if (A.innerHTML.match(RegExp(doi,'g')))
-                        A.innerHTML = A.innerHTML.replace(RegExp(doi,'g'),doi+download_icon_html.outerHTML)
-                    else
+
+                    let successful_inline_image_creation = false
+                    let nodes_walk_to_create_inline_img = document.createTreeWalker(A);
+                    let node_to_create_inline_img = nodes_walk_to_create_inline_img.nextNode()
+
+                    while (node_to_create_inline_img)
+                    {
+                        if (is_valid_text_node(node_to_create_inline_img))
+                        {
+                            const original_parent_html = node_to_create_inline_img.parentElement.innerHTML
+                            replace_text_node_with_dom_obj(node_to_create_inline_img,doi,download_icon_html)
+                            if (original_parent_html!==node_to_create_inline_img.parentElement.innerHTML)
+                                successful_inline_image_creation=true
+                        }
+                        node_to_create_inline_img = nodes_walk_to_create_inline_img.nextNode()
+                    }
+                    // console.log(a)
+                    if (!successful_inline_image_creation)
+                    {
                         A.appendChild(download_icon_html)
+                    }
 
                     // re-add the on-click function, as sometimes the on_click added in the create_download_icon seems to fail
                     let link_from_doi = await doi_to_link(doi)
                     if (A.getElementsByClassName('LYH_download_icon').length)
                     {
-                        A.getElementsByClassName('LYH_download_icon')[0].onclick = function ()
+                        for (let node_to_add_on_click of A.getElementsByClassName('LYH_download_icon'))
                         {
-                            chrome.runtime.sendMessage({"CreateTab": link_from_doi.toString()});
-                            return false;
+                            node_to_add_on_click.onclick = function ()
+                            {
+                                chrome.runtime.sendMessage({"CreateTab": link_from_doi.toString()});
+                                return false;
+                            }
                         }
                     }
                 }
@@ -191,34 +217,10 @@ async function main()
         // 目前只允许每个strings出现一个doi
         if (! processed_nodes.includes(A))
         {
-            if (!already_is_download_page())
+            if (!await already_is_download_page())
             {
                 let created_download_icon = await create_download_icon(doi)
                 A.appendChild(created_download_icon);
-
-                // x-mol的https://www.x-mol.com/q页面的特殊处理
-                // x-mol页面上创建一个链接（因为x-mol自己的target不对），然后在自己的页面上打开期刊原文页面
-                // 然后打开一个sci-hub或者lib-gen下载页面，打开它
-                if (window.location.href.startsWith('https://www.x-mol.com/q'))
-                {
-                    if (x_mol_processed_links.indexOf(href_node['href']) === -1)
-                    {
-                        let aTags = document.getElementsByTagName("a");
-                        let searchText = "已成功找到 , 正在跳转……";
-                        for (let tag of aTags)
-                        {
-                            if (tag.innerText.search(searchText) !== -1)
-                            {
-                                let x_mol_article_link = document.createElement('a');
-                                x_mol_article_link.href = href_node['href'];
-                                x_mol_processed_links.push(href_node['href'])
-                                x_mol_article_link.click();
-                                chrome.runtime.sendMessage({"CreateTab": created_download_icon['href']});
-                                break
-                            }
-                        }
-                    }
-                }
             }
             processed_nodes.push(A)
         }
@@ -237,12 +239,16 @@ async function main()
     }
 
     // save DOIs find by current page for use in constructing the popup page
-    chrome.runtime.sendMessage(
-        {
-            url:window.location.href,
-            DOIs:final_DOIs_sorted
-        }
-    )
+    if (final_DOIs_sorted.length!==0)
+    {
+        chrome.runtime.sendMessage(
+            {
+                url: window.location.href,
+                DOIs: final_DOIs_sorted
+            }
+        )
+    }
+    console.log("Used storage:",await chrome.storage.sync.getBytesInUse(null))
 
 
     // process the 503 Service Temporarily Unavailable given by libgen,
@@ -266,11 +272,36 @@ async function main()
         }
     }
 
+
+    // process the 503 Service Temporarily Unavailable given by booksdl,
+    // To wait a few second, re-launch the original booksdl page, then, close the page itself
+    // Reg Match: https://cdn1.booksdl.org/get.php?md5=329d4cc5ba19789c826050e83bfe9a57&key=FK2YCZOBWJ5IL6L3&doi=10.1021/ja071739c
+    let libgen_link =  settings_storage["libgen_link"]
+    let libgen_link_host = new URL(libgen_link).host
+    let current_url = window.location.href
+    if (current_url.search(libgen_link_host)!==-1)
+    {
+        let booksdl_503_regex = RegExp(/(?:scimag\/)*get.php\?(?:.+=.+&)?doi=(10(?:\.\d+)+\/[^\s&]+)/g)
+        if (booksdl_503_regex.test(current_url))
+        {
+            if (document.getElementsByTagName('h1').length !== 0 &&
+                document.getElementsByTagName('h1')[0].textContent.trim() === "503 Service Temporarily Unavailable")
+            {
+                let url_object = new URL(current_url)
+                let booksdl_503_doi = url_object.searchParams.get('doi')
+                if (booksdl_503_doi)
+                {
+                    await open_libgen_from_DOI(booksdl_503_doi)
+                }
+            }
+        }
+    }
+
+
     //process lib-gen book not found failure giving something like "
     // Error
     // Book with such MD5 hash isn't found 10.1002/anie.202105092 "
-    let libgen_link_match =  get_dict_value(settings_storage, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
-    libgen_link_match = libgen_link_match.split(/\[DOI/g)[0]
+    let libgen_link_match = libgen_link.split(/\[DOI/g)[0]
     if (window.location.href.startsWith(libgen_link_match) &&
         document.getElementsByTagName('h1').length &&
         document.getElementsByTagName('h1')[0].textContent.trim()==='Error' &&
@@ -282,8 +313,6 @@ async function main()
 
     //process lib-gen 502 failure giving something like "
     // 502 Bad Gateway
-    libgen_link_match =  get_dict_value(settings_storage, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
-    libgen_link_match = libgen_link_match.split(/\[DOI/g)[0]
     if (window.location.href.startsWith(libgen_link_match) &&
         document.getElementsByTagName('h1').length &&
         document.getElementsByTagName('h1')[0].textContent=='502 Bad Gateway'
@@ -294,7 +323,8 @@ async function main()
 
     //process lib-gen book not found failure giving something like "
     // File not found in DB
-    if (window.location.href.startsWith("http://libgen.") &&
+
+    if (current_url.search(libgen_link_host)!==-1 &&
         document.getElementsByTagName('div').length &&
         document.getElementsByTagName('div')[0].className==='alert alert-danger' &&
         document.getElementsByTagName('div')[0].innerText==='File not found in DB')

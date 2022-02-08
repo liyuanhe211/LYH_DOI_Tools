@@ -9,15 +9,17 @@ async function initialization()
 
     let default_settings = {}
     default_settings.pdf_link_radio_choice = 'lib-gen'
-    default_settings.libgen_link = 'http://libgen.li/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]'
+    // default_settings.libgen_link = 'http://libgen.li/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]'
+    default_settings.libgen_link = 'https://cdn1.booksdl.org/ads.php?doi=[DOI]'
     default_settings.scihub_link = 'https://sci-hub.se/[DOI]'
     default_settings.hide_scihub_or_libgen = true
 
     await set_storage({settings:default_settings})
-    await set_storage({page_DOIs:{}})
+    // await set_storage({page_DOIs:{}})
+    await set_storage({page_DOIs_url_list:[]}) // a list to store in sequence the last stored URLs, due to Chrome limits, there will be only 50 items stored in the page DOI
     await set_storage({saved_doi_choices:{}})
     await set_storage({switch_to_previous_list: []})
-    await set_storage({error_log:[]})
+    // await set_storage({error_log:[]})
 }
 
 chrome.runtime.onInstalled.addListener(initialization);
@@ -26,15 +28,33 @@ chrome.runtime.onInstalled.addListener(initialization);
 // Event processor for all content.js messages
 async function event_listener(request, sender, sendResponse)
 {
-    let page_DOIs_storage = await get_storage("page_DOIs")
-    page_DOIs_storage[request.url] = request.DOIs
-    await set_storage({page_DOIs:page_DOIs_storage})
+    // save DOIs found in one page
+    if ("url" in request)
+    {
+        // let page_DOIs_storage = await get_storage("page_DOIs")
+        let page_DOIs_url_list_storage = await get_storage('page_DOIs_url_list')
+        if (page_DOIs_url_list_storage.indexOf(request.url)!==-1)
+        {
+            page_DOIs_url_list_storage.splice(page_DOIs_url_list_storage.indexOf(request.url),1)
+        }
+        let set_storage_obj = {}
+        set_storage_obj[request.url] = request.DOIs
+        await set_storage(set_storage_obj)
+        page_DOIs_url_list_storage.push(request.url)
+        if (page_DOIs_url_list_storage.length>50)
+        {
+            let page_to_remove = page_DOIs_url_list_storage.shift()
+            await remove_storage(page_to_remove)
+        }
+        await set_storage({page_DOIs_url_list:page_DOIs_url_list_storage})
+        console.log("Used storage:",await chrome.storage.sync.getBytesInUse(null))
+    }
 
     // create tab from background, this will prevent tab switching
     if ("CreateTab" in request)
     {
         let url_to_open = request["CreateTab"]
-        //console.log("Opening URL: ",url_to_open)
+        console.log("Opening URL: ",url_to_open)
         await chrome.tabs.create({url: url_to_open, active: false})
     }
 

@@ -20,7 +20,7 @@ const set_storage = async function (obj)
 };
 
 // async wrapping for chrome.storage.sync.get
-const get_storage = async function (key)
+const get_storage = async function (key,default_value=undefined)
 {
     return new Promise((resolve, reject) =>
                        {
@@ -29,7 +29,18 @@ const get_storage = async function (key)
                                chrome.storage.sync.get(key,
                                                        function (value)
                                                        {
-                                                           resolve(value[key]);
+                                                           if (value[key]!==undefined)
+                                                           {
+                                                               resolve(value[key]);
+                                                           }
+                                                           else if (key===null)
+                                                           {
+                                                               resolve(value)
+                                                           }
+                                                           else
+                                                           {
+                                                               resolve(default_value)
+                                                           }
                                                        });
                            }
                            catch (ex)
@@ -40,13 +51,13 @@ const get_storage = async function (key)
 };
 
 // async wrapping for chrome.storage.sync.remove
-const rm_storage = async function (keys)
+const remove_storage = async function (key_or_keys)
 {
     return new Promise((resolve, reject) =>
                        {
                            try
                            {
-                               chrome.storage.sync.remove(keys,
+                               chrome.storage.sync.remove(key_or_keys,
                                                            function ()
                                                            {
                                                                resolve();
@@ -59,6 +70,25 @@ const rm_storage = async function (keys)
                        });
 };
 
+function is_valid_text_node(node)
+{
+    if (node.nodeType === 3 &&
+        node.parentElement.tagName.toLowerCase() !== 'script' &&
+        node.textContent.trim())
+    {
+        return true
+    }
+    else
+        return false
+}
+
+async function get_page_DOIs(url)
+{
+    console.log("Storage content:",await get_storage(null))
+    console.log('Querying:',url)
+    return await get_storage(url,[])
+}
+
 function remove_tailing_dot(text)
 {
     while (text[text.length-1]==='.')
@@ -68,16 +98,51 @@ function remove_tailing_dot(text)
     return text
 }
 
+function replace_text_node_with_dom_obj(text_node,search_text,dom_obj)
+{
+    let text_content = text_node.nodeValue
+    let first_split_pos = text_content.search(search_text)
+    if (first_split_pos!==-1)
+    {
+        let second_node = text_node.splitText(first_split_pos+search_text.length)
+        text_node.parentElement.insertBefore(dom_obj,second_node)
+        replace_text_node_with_dom_obj(second_node,search_text,dom_obj)
+    }
+}
+
+function is_URL(text)
+{
+    try
+    {
+        new URL(text)
+        return true
+    }
+    catch (e)
+    {
+        if (!e.message.trim().startsWith("Failed to construct 'URL': Invalid URL"))
+        {
+            console.log("Unknown error happened",e,text)
+        }
+        else
+        {
+            //pass
+        }
+        return false
+    }
+}
+
 // find DOI from string
 function match_doi(text)
 {
     try
     {
-        text = decodeURIComponent(text)
+        if (!text.trim().startsWith('#') &&
+            !text.trim().startsWith('.'))
+            text = decodeURIComponent(text)
     }
     catch (e)
     {
-        console.log("ERROR IGNORED (This is normal):",e)
+        console.log("ERROR IGNORED (This is normal if the URL is weird):",e,text)
     }
 
     //匹配：
@@ -130,6 +195,16 @@ function match_doi(text)
                 }
                 matched_doi = matched_doi.substr(0,cut)
             }
+            // 10.1055会出现自己在doi后面加个pdf的情况
+            // dx.doi.org/10.1055/s-1997-1294 中会识别到 10.1055/s-1997-1294.pdf
+            if (matched_doi.startsWith('10.1055'))
+            {
+                if (matched_doi.endsWith('.pdf'))
+                {
+                    matched_doi = matched_doi.substring(0,matched_doi.length-4)
+                }
+            }
+
             return remove_tailing_dot(matched_doi)
         }
     }
@@ -150,25 +225,71 @@ function match_doi(text)
             return remove_tailing_dot(matched_doi)
         }
     }
+
+    // ChemComm的特殊链接 http://xlink.rsc.org/?DOI=C6CC05568K
+    if (is_URL(text))
+    {
+        let url_object = new URL(text)
+        if (url_object.host.endsWith("rsc.org"))
+        {
+            let doi = url_object.searchParams.get('DOI')
+            if (doi)
+            {
+                return "10.1039/"+doi
+            }
+        }
+    }
 }
 
 // Test situations for the doi matching function
-// function test_match_doi_function()
-// {
-//     console.log(match_doi('hahaha'))
-//     console.log(match_doi('10.1021/acs.orglett.5b00297'))
-//     console.log(match_doi('哈哈哈https://doi.org/10.1002/anie.202105092'))
-//     console.log(match_doi('哈哈哈https://doi.org/10.1002/anie.202105092)'))
-//     console.log(match_doi('https://doi.org/10.1002/anie.202105092'))
-//     console.log(match_doi('10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
-//     console.log(match_doi('https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
-//     console.log(match_doi('对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C'))
-//     console.log(match_doi('对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C)'))
-//     console.log(match_doi('《自然•化学》(Nature Chemistry, 2021, DOI: 10.1038/s41557-021-00778-z)。近日，2021年诺贝尔化学奖颁给了德国化学家本杰明·利斯特（Benjamin List），以及美国'))
-//     console.log(match_doi("(blabla, DOI: 10.1021/acs.orglett.5b00297)"))
-//     console.log(match_doi("DOI: 10.1021/acs.orglett.5b00297）"))
-// }
+function test_match_doi_function()
+{
+    let test_cases = ['hahaha',
+                      '10.1021/acs.orglett.5b00297',
+                      '哈哈哈https://doi.org/10.1002/anie.202105092',
+                      '哈哈哈https://doi.org/10.1002/anie.202105092)',
+                      'https://doi.org/10.1002/anie.202105092',
+                      '10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C',
+                      'https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C',
+                      '对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C',
+                      '对wiley的特殊情况：https://doi.org/10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C)',
+                      '《自然•化学》(Nature Chemistry, 2021, DOI: 10.1038/s41557-021-00778-z)。近日，2021年诺贝尔化学奖颁给了德国化学家本杰明·利斯特（Benjamin List），以及美国',
+                      "(blabla, DOI: 10.1021/acs.orglett.5b00297)",
+                      "DOI: 10.1021/acs.orglett.5b00297）",
+                      'http://xlink.rsc.org/?DOI=C6CC05568K',
+                      "https://lls.reaxys.com/xflink?aulast=Xu&title=Bioorganic%20and%20Medicinal%20Chemistry%20Letters&volume=29&issue=19&spage=&date=2019&coden=BMCLE&doi=10.1016%2Fj.bmcl.2019.126630&issn=1464-3405",
+                      "https://www.thieme-connect.de/products/ejournals/pdf/10.1055/s-1997-1294.pdf"]
 
+    let answers = [undefined,
+                   "10.1021/acs.orglett.5b00297",
+                   "10.1002/anie.202105092",
+                   "10.1002/anie.202105092",
+                   "10.1002/anie.202105092",
+                   "10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C",
+                   "10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C",
+                   "10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C",
+                   "10.1002/1521-3773(20001117)39:22<3964::AID-ANIE3964>3.0.CO;2-C",
+                   "10.1038/s41557-021-00778-z",
+                   "10.1021/acs.orglett.5b00297",
+                   "10.1021/acs.orglett.5b00297",
+                   "10.1039/C6CC05568K",
+                   "10.1016/j.bmcl.2019.126630",
+                   "10.1055/s-1997-1294"]
+
+    console.log("-----------Test start-----------")
+    for (let i=0;i<test_cases.length;i++)
+    {
+        let test_case = test_cases[i]
+        let answer = answers[i]
+        if (match_doi(test_case)===answer)
+            console.log("PASS")
+        else
+            console.log('FAIL',test_case,match_doi(test_case),answer)
+    }
+    console.log("-----------Test end-----------")
+}
+
+// test_match_doi_function()
 
 function get_dict_value(dict,key,def)
 {
@@ -190,14 +311,14 @@ async function doi_to_link(doi,override_choice = false)
     let site_choice = undefined
 
     if (!override_choice)
-        site_choice = get_dict_value(settings_storage, "pdf_link_radio_choice", 'sci-hub')
+        site_choice = settings_storage["pdf_link_radio_choice"]
     else
         site_choice = override_choice
 
     if (site_choice === 'sci-hub')
-        template =  get_dict_value(settings_storage, "scihub_link", 'https://sci-hub.se/[DOI]')
+        template =  settings_storage["scihub_link"]
     else
-        template =  get_dict_value(settings_storage, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
+        template =  settings_storage["libgen_link"]
 
     let regex = new RegExp(/[<>:"\/\\|?*%]/,'g')
     let download_filename = doi.replace(regex, '_') + '.pdf'
@@ -206,13 +327,11 @@ async function doi_to_link(doi,override_choice = false)
 }
 
 // test whether current page is already sci-hub or lib-gen download page (used as icons will not be created in these pages)
-const already_is_download_page = function()
+const already_is_download_page = async function()
 {
-
-    let settings_storage = get_storage('settings')
-
-    let sci_hub_url = get_dict_value(settings_storage, "scihub_link", 'https://sci-hub.se/[DOI]')
-    let lib_gen_url = get_dict_value(settings_storage, "libgen_link", 'http://libgen.li/scimag/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]')
+    let settings_storage = await get_storage('settings')
+    let sci_hub_url = settings_storage["scihub_link"]
+    let lib_gen_url = settings_storage["libgen_link"]
 
     //如果是Lib-Gen或者Sci-Hub的下载页，不再创建链接按钮
     let current_page_url = window.location.href
@@ -231,14 +350,29 @@ const already_is_download_page = function()
 const create_download_icon = async function(doi)
 {
     let a = document.createElement("a");
-    let download_button_img_src = ""
-    download_button_img_src = chrome.runtime.getURL("images/Download_button.png")
+    let download_button_img_src = chrome.runtime.getURL("images/Download_button.png")
+    let download_button_hover_img_src=chrome.runtime.getURL("images/Download_button_hover.png")
+    let download_button_pressed_img_src=chrome.runtime.getURL("images/Download_button_pressed.png")
     let link_from_doi = await doi_to_link(doi)
     a.setAttribute('href',link_from_doi)
     let img = document.createElement("img");
     img.setAttribute("src", download_button_img_src)
+    img.onmouseover = function(){
+        this.src=download_button_hover_img_src
+    }
+    img.onmouseout = function(){
+        this.src=download_button_img_src
+    }
+    img.onmousedown = function()
+    {
+        this.src=download_button_pressed_img_src
+    }
+    img.onmouseup = function()
+    {
+        this.src=download_button_hover_img_src
+    }
     a.setAttribute('target',"_blank")
-    img.setAttribute('style',"height:15px;")
+    img.setAttribute('style',"height:15px;width:20.5px")
     a.appendChild(img)
     a.classList.add('LYH_download_icon')
     a.onclick = function() {
@@ -251,16 +385,12 @@ const create_download_icon = async function(doi)
 
 const open_libgen_from_DOI = async function(doi)
 {
-    const link = document.createElement('a');
-    link.href = await doi_to_link(doi,'lib-gen');
-    link.click();
+    location.replace(await doi_to_link(doi,'lib-gen'))
 }
 
 const open_scihub_from_DOI = async function(doi)
 {
-    const link = document.createElement('a');
-    link.href = await doi_to_link(doi,'sci-hub');
-    link.click();
+    location.replace(await doi_to_link(doi,'sci-hub'))
 }
 
 const open_scihub_from_libgen_error = async function()
@@ -274,6 +404,12 @@ async function set_bkg_settings(key, value)
     settings_storage[key] = value
     await set_storage({settings:settings_storage})
     //console.log("Setting change required:", key, value)
+}
+
+async function get_bkg_settings(key)
+{
+    let settings_storage = await get_storage("settings")
+    return settings_storage[key]
 }
 
 // get the active tab URL, used in popup and background js
@@ -350,3 +486,4 @@ function x_mol_request_listener(request, sender, sendResponse)
         chrome.runtime.sendMessage({"CreateTab": "https://www.x-mol.com/q?option=" + window.getSelection().toString()});
     }
 }
+

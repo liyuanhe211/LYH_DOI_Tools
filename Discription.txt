@@ -6,15 +6,15 @@ Features:
 Add a download button to every DOI string or DOI link.
 Directly download PDF from citation info from context menu or use the shortcut Ctrl+Shift+S.
 Batch download PDFs for all DOI found in one page.
-Jump unnecessary clicks to make smooth browsing experience:
-    Sci-Hub: The Open button for Sci-Hub download
-    Lib-Gen: The GET button for Lib-Gen download
-    Wiley: The PDF button in the STUPID Wiley ePDF page
-    x-mol.com: The totally meaningless waiting period (a few seconds) before redirection when searching references on x-mol.com
-    Scifinder: The need to click the single DOI link when opening Other sources on SciFinder
+Jump unnecessary clicks to make browsing experience smoother:
+    Sci-Hub: The Open button for Sci-Hub download.
+    Lib-Gen: The GET button for Lib-Gen download.
+    Lib-Gen: Auto refresh when 503 Service Temporarily Unavailable is triggered due to download several files at once (very useful for download large batch of files).
+    Wiley: The PDF button in the STUPID Wiley ePDF page.
+    x-mol.com: The totally meaningless waiting period (a few seconds) before redirection when searching references on x-mol.com.
+    Scifinder: The need to click the single DOI link when opening Other sources on SciFinder.
 
 Explanation of required permissions:
     "tabs" permission: The extension needs to know the content and URL of the tabs to find DOIs, and to modify the content of the webpage to add download icons according to the found DOIs.
-    "storage" permission: To store settings like preferred sci-hub domain and other options
-    "contextMenus" permission: Add a contextMenu item to access x-mol.com search engine
-    "scripting" permission: Used for the shortcut of calling x-mol.com search using Ctrl+Shift+S
+    "storage" permission: To store settings like preferred sci-hub domain and other options.
+    "contextMenus" permission: Add a contextMenu item as a quick way to access x-mol.com search engine.
