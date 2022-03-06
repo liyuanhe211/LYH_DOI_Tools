@@ -74,7 +74,7 @@ Developing this tool doesn't mean I support the piracy of scientific papers, or 
 0.7 - 20220307
  * Fix Lib-Gen using domains having more than 2 characters like `libgen.rocks`
 
-0.6 - 20220215
+0.6 - 20220208
  * Tidy up popup page.
  * Added feed back for the download button (hover and pressed).
  * Support drag-select in the batch download checkbox selection.
