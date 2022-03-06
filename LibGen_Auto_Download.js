@@ -41,4 +41,12 @@ async function main()
     }
 }
 
-main()
+let current_host_checkLibGen = new URL(window.location.href).host.toLowerCase()
+let current_path_checkLibGen = new URL(window.location.href).pathname
+if (current_host_checkLibGen.search("libgen")!==-1 || current_host_checkLibGen.search("booksdl")!==-1 )
+{
+    if (current_path_checkLibGen.endsWith('ads.php'))
+    {
+        main()
+    }
+}

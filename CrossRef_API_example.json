@@ -1,0 +1,571 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2022,
+          1,
+          23
+        ]
+      ],
+      "date-time": "2022-01-23T07:07:13Z",
+      "timestamp": 1642921633275
+    },
+    "reference-count": 37,
+    "publisher": "American Chemical Society (ACS)",
+    "issue": "6",
+    "funder": [
+      {
+        "DOI": "10.13039\/100005300",
+        "name": "American Chemical Society",
+        "doi-asserted-by": "publisher"
+      },
+      {
+        "DOI": "10.13039\/100005714",
+        "name": "Office of Experimental Program to Stimulate Competitive Research",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "FAR0021979"
+        ]
+      },
+      {
+        "DOI": "10.13039\/100006351",
+        "name": "North Dakota State University",
+        "doi-asserted-by": "publisher"
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Org. Lett."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          20
+        ]
+      ]
+    },
+    "DOI": "10.1021\/acs.orglett.5b00297",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          2
+        ]
+      ],
+      "date-time": "2015-03-02T17:31:59Z",
+      "timestamp": 1425317519000
+    },
+    "page": "1429-1432",
+    "source": "Crossref",
+    "is-referenced-by-count": 13,
+    "title": [
+      "Characterization of Br\u00f8nsted Acid\u2013Base Complexes by 19F DOSY"
+    ],
+    "prefix": "10.1021",
+    "volume": "17",
+    "author": [
+      {
+        "given": "Hariharaputhiran",
+        "family": "Subramanian",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Department\rof Chemistry and Biochemistry, North Dakota State University, Fargo, North Dakota 58108, United States"
+          }
+        ]
+      },
+      {
+        "given": "Craig P.",
+        "family": "Jasperse",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department\rof Chemistry, Minnesota State University, Moorhead, Minnesota 56563, United States"
+          }
+        ]
+      },
+      {
+        "given": "Mukund P.",
+        "family": "Sibi",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department\rof Chemistry and Biochemistry, North Dakota State University, Fargo, North Dakota 58108, United States"
+          }
+        ]
+      }
+    ],
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          2
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ref1\/cit1a",
+        "doi-asserted-by": "crossref",
+        "first-page": "8064",
+        "DOI": "10.1021\/ja071739c",
+        "volume": "129",
+        "author": "Sibi M. P.",
+        "year": "2007",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref1\/cit1b",
+        "doi-asserted-by": "crossref",
+        "first-page": "9200",
+        "DOI": "10.1021\/ja9623929",
+        "volume": "118",
+        "author": "Sibi M. P.",
+        "year": "1996",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref1\/cit1c",
+        "doi-asserted-by": "crossref",
+        "first-page": "3894",
+        "DOI": "10.1021\/ol901504p",
+        "volume": "11",
+        "author": "Sibi M. P.",
+        "year": "2009",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref1\/cit1d",
+        "doi-asserted-by": "crossref",
+        "first-page": "5349",
+        "DOI": "10.1021\/ol802154d",
+        "volume": "10",
+        "author": "Sibi M. P.",
+        "year": "2008",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref2\/cit2a",
+        "doi-asserted-by": "crossref",
+        "first-page": "3063",
+        "DOI": "10.1021\/ja951780s",
+        "volume": "118",
+        "author": "Sibi M. P.",
+        "year": "1996",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref2\/cit2b",
+        "doi-asserted-by": "crossref",
+        "first-page": "395",
+        "DOI": "10.1021\/ja066425o",
+        "volume": "129",
+        "author": "Sibi M. P.",
+        "year": "2007",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref3\/cit3a",
+        "doi-asserted-by": "crossref",
+        "first-page": "5744",
+        "DOI": "10.1021\/cr068374j",
+        "volume": "107",
+        "author": "Akiyama T.",
+        "year": "2007",
+        "journal-title": "Chem. Rev."
+      },
+      {
+        "key": "ref3\/cit3b",
+        "doi-asserted-by": "crossref",
+        "first-page": "9047",
+        "DOI": "10.1021\/cr5001496",
+        "volume": "114",
+        "author": "Parmar D.",
+        "year": "2014",
+        "journal-title": "Chem. Rev."
+      },
+      {
+        "key": "ref4\/cit4",
+        "doi-asserted-by": "crossref",
+        "first-page": "6364",
+        "DOI": "10.1002\/anie.201101385",
+        "volume": "50",
+        "author": "Fleischmann M.",
+        "year": "2011",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref5\/cit5a",
+        "doi-asserted-by": "crossref",
+        "first-page": "4193",
+        "DOI": "10.1002\/anie.200600512",
+        "volume": "45",
+        "author": "Mayer S.",
+        "year": "2006",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref5\/cit5b",
+        "doi-asserted-by": "crossref",
+        "first-page": "496",
+        "DOI": "10.1126\/science.1145229",
+        "volume": "317",
+        "author": "Hamilton G. L.",
+        "year": "2007",
+        "journal-title": "Science"
+      },
+      {
+        "key": "ref5\/cit5c",
+        "doi-asserted-by": "crossref",
+        "first-page": "6903",
+        "DOI": "10.1002\/anie.200702439",
+        "volume": "46",
+        "author": "Rueping M.",
+        "year": "2007",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref5\/cit5d",
+        "doi-asserted-by": "crossref",
+        "first-page": "534",
+        "DOI": "10.1002\/anie.201205449",
+        "volume": "52",
+        "author": "Brak K.",
+        "year": "2013",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref5\/cit5e",
+        "doi-asserted-by": "crossref",
+        "first-page": "518",
+        "DOI": "10.1002\/anie.201205343",
+        "volume": "52",
+        "author": "Mahlau M.",
+        "year": "2013",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref6\/cit6",
+        "doi-asserted-by": "crossref",
+        "first-page": "288",
+        "DOI": "10.1063\/1.1695690",
+        "volume": "42",
+        "author": "Stejskal E. O.",
+        "year": "1965",
+        "journal-title": "J. Chem. Phys."
+      },
+      {
+        "key": "ref7\/cit7a",
+        "doi-asserted-by": "crossref",
+        "first-page": "2224",
+        "DOI": "10.1016\/j.ccr.2007.12.016",
+        "volume": "252",
+        "author": "Bellachioma G.",
+        "year": "2008",
+        "journal-title": "Coord. Chem. Rev."
+      },
+      {
+        "key": "ref7\/cit7b",
+        "doi-asserted-by": "crossref",
+        "first-page": "2977",
+        "DOI": "10.1021\/cr0406716",
+        "volume": "105",
+        "author": "Pregosin P. S.",
+        "year": "2005",
+        "journal-title": "Chem. Rev."
+      },
+      {
+        "key": "ref8\/cit8a",
+        "doi-asserted-by": "crossref",
+        "first-page": "5410",
+        "DOI": "10.1021\/om049559o",
+        "volume": "23",
+        "author": "Anil Kumar P. G.",
+        "year": "2004",
+        "journal-title": "Organometallics"
+      },
+      {
+        "key": "ref8\/cit8b",
+        "doi-asserted-by": "crossref",
+        "first-page": "2209",
+        "DOI": "10.1021\/ic0206600",
+        "volume": "42",
+        "author": "Martinez-Viviente E.",
+        "year": "2003",
+        "journal-title": "Inorg. Chem."
+      },
+      {
+        "key": "ref8\/cit8c",
+        "doi-asserted-by": "crossref",
+        "first-page": "8249",
+        "DOI": "10.1039\/c2cc33547f",
+        "volume": "48",
+        "author": "Beaulieu L.-P. B.",
+        "year": "2012",
+        "journal-title": "Chem. Commun."
+      },
+      {
+        "key": "ref9\/cit9",
+        "doi-asserted-by": "crossref",
+        "first-page": "270",
+        "DOI": "10.1021\/ar800127e",
+        "volume": "42",
+        "author": "Li D.",
+        "year": "2009",
+        "journal-title": "Acc. Chem. Res."
+      },
+      {
+        "key": "ref10\/cit10",
+        "doi-asserted-by": "crossref",
+        "first-page": "7965",
+        "DOI": "10.1021\/ja00135a015",
+        "volume": "117",
+        "author": "Chen A.",
+        "year": "1995",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref11\/cit11a",
+        "doi-asserted-by": "crossref",
+        "first-page": "11726",
+        "DOI": "10.1021\/ja802114j",
+        "volume": "130",
+        "author": "Li D.",
+        "year": "2009",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref11\/cit11b",
+        "doi-asserted-by": "crossref",
+        "first-page": "909",
+        "DOI": "10.1021\/ol703039v",
+        "volume": "10",
+        "author": "Li D.",
+        "year": "2008",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref11\/cit11c",
+        "doi-asserted-by": "crossref",
+        "first-page": "4818",
+        "DOI": "10.1021\/ol9019106",
+        "volume": "11",
+        "author": "Kagan G.",
+        "year": "2009",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref11\/cit11d",
+        "first-page": "180",
+        "author": "Li W.",
+        "year": "2011",
+        "journal-title": "ARKIVOC"
+      },
+      {
+        "key": "ref11\/cit11e",
+        "doi-asserted-by": "crossref",
+        "first-page": "3918",
+        "DOI": "10.1039\/c0ob00047g",
+        "volume": "8",
+        "author": "Jang H. B.",
+        "year": "2010",
+        "journal-title": "Org. Biomol. Chem."
+      },
+      {
+        "key": "ref12\/cit12",
+        "doi-asserted-by": "crossref",
+        "first-page": "123",
+        "DOI": "10.1006\/jmra.1995.1156",
+        "volume": "115",
+        "author": "Wu D.",
+        "year": "1995",
+        "journal-title": "J. Magn. Reson., Ser. A"
+      },
+      {
+        "key": "ref13\/cit13",
+        "doi-asserted-by": "crossref",
+        "first-page": "1327",
+        "DOI": "10.1021\/j100679a032",
+        "volume": "75",
+        "author": "Kriszenbaum M.",
+        "year": "1971",
+        "journal-title": "J. Phys. Chem."
+      },
+      {
+        "key": "ref14\/cit14a",
+        "doi-asserted-by": "crossref",
+        "first-page": "8942",
+        "DOI": "10.1021\/ja052433d",
+        "volume": "127",
+        "author": "Evans D. A.",
+        "year": "2005",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref14\/cit14b",
+        "doi-asserted-by": "crossref",
+        "first-page": "1639",
+        "DOI": "10.3987\/COM-13-S(S)118",
+        "volume": "88",
+        "author": "Sibi M. P.",
+        "year": "2014",
+        "journal-title": "Heterocycles"
+      },
+      {
+        "key": "ref14\/cit14c",
+        "doi-asserted-by": "crossref",
+        "first-page": "11896",
+        "DOI": "10.1021\/ja304481a",
+        "volume": "134",
+        "author": "Yoshida M.",
+        "year": "2012",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref14\/cit14d",
+        "doi-asserted-by": "crossref",
+        "first-page": "11319",
+        "DOI": "10.1021\/ja305717r",
+        "volume": "134",
+        "author": "Trost B. M.",
+        "year": "2012",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ref14\/cit14e",
+        "doi-asserted-by": "crossref",
+        "first-page": "3647",
+        "DOI": "10.1021\/ol7015274",
+        "volume": "9",
+        "author": "Boersma A. J.",
+        "year": "2007",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref14\/cit14f",
+        "doi-asserted-by": "crossref",
+        "first-page": "1110",
+        "DOI": "10.1021\/ol3000298",
+        "volume": "14",
+        "author": "Tyson E. L.",
+        "year": "2012",
+        "journal-title": "Org. Lett."
+      },
+      {
+        "key": "ref14\/cit14g",
+        "doi-asserted-by": "crossref",
+        "first-page": "6392",
+        "DOI": "10.1002\/anie.201102405",
+        "volume": "50",
+        "author": "Xu X.",
+        "year": "2011",
+        "journal-title": "Angew. Chem., Int. Ed."
+      },
+      {
+        "key": "ref14\/cit14h",
+        "doi-asserted-by": "crossref",
+        "first-page": "2190",
+        "DOI": "10.1002\/anie.200904905",
+        "volume": "49",
+        "author": "Guan X.-Y.",
+        "year": "2010",
+        "journal-title": "Angew. Chem., Int. Ed."
+      }
+    ],
+    "container-title": [
+      "Organic Letters"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https:\/\/pubs.acs.org\/doi\/pdf\/10.1021\/acs.orglett.5b00297",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2021,
+          8,
+          27
+        ]
+      ],
+      "date-time": "2021-08-27T04:30:05Z",
+      "timestamp": 1630038605000
+    },
+    "score": 1,
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          2
+        ]
+      ]
+    },
+    "references-count": 37,
+    "journal-issue": {
+      "issue": "6",
+      "published-print": {
+        "date-parts": [
+          [
+            2015,
+            3,
+            20
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1021\/acs.orglett.5b00297"
+    ],
+    "URL": "http:\/\/dx.doi.org\/10.1021\/acs.orglett.5b00297",
+    "relation": {},
+    "ISSN": [
+      "1523-7060",
+      "1523-7052"
+    ],
+    "issn-type": [
+      {
+        "value": "1523-7060",
+        "type": "print"
+      },
+      {
+        "value": "1523-7052",
+        "type": "electronic"
+      }
+    ],
+    "subject": [
+      "Organic Chemistry",
+      "Physical and Theoretical Chemistry",
+      "Biochemistry"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          2
+        ]
+      ]
+    }
+  }
+}

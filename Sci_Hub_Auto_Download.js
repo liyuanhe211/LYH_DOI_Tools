@@ -50,4 +50,8 @@ async function main()
 
 }
 
-main()
+let current_host_check_scihub = new URL(window.location.href).host
+if (current_host_check_scihub.toLowerCase().search("sci-hub")!==-1)
+{
+    main()
+}
