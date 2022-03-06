@@ -70,7 +70,11 @@ In the popup window, there are a few options:
 Developing this tool doesn't mean I support the piracy of scientific papers, or that I'm against paid publication services (although I definitely believe it's way too overpriced, and that the reviewing duties should be appreciated financially). I personally already have legal access to (nearly) all the papers I need without Sci-Hub or Lib-Gen. However, the experience of downloading a paper is unacceptably tedious, varies from site to site, is unstable, and is poor in UI design. This is especially true for someone who lives off-campus. The purpose of writing this extension is to solely address the user experience problem, and instead of writing a script for every possible publisher (which frequently changes their site), I elect to use a unified approach (Sci-Hub and Lib-Gen). If one day, all publishers have a unified authentication process and have some kind of standard API for paper access, I'm happy to move away from pirate sites.
 
 ## Changelog
-Current
+
+0.7 - 20220307
+ * Fix Lib-Gen using domains having more than 2 characters like `libgen.rocks`
+
+0.6 - 20220215
  * Tidy up popup page.
  * Added feed back for the download button (hover and pressed).
  * Support drag-select in the batch download checkbox selection.
