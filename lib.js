@@ -230,7 +230,13 @@ function match_doi(text)
     if (is_URL(text))
     {
         let url_object = new URL(text)
-        if (url_object.host.endsWith("rsc.org"))
+        // Split the host into its sections
+        let hostParts = url_object.host.split('.');
+
+        // Check if the last two sections of the host are 'rsc.org'
+        if (hostParts.length >= 2
+            && hostParts[hostParts.length - 2] === 'rsc'
+            && hostParts[hostParts.length - 1] === 'org')
         {
             let doi = url_object.searchParams.get('DOI')
             if (doi)
@@ -238,7 +244,20 @@ function match_doi(text)
                 return "10.1039/"+doi
             }
         }
+
+        // https://pubs.rsc.org/en/content/articlelanding/2017/cc/c6cc05568k
+        const pattern = /cc\/([a-zA-Z0-9]+)/;
+        const matches = text.match(pattern);
+
+        // If the pattern matches, transform and return the string
+        if (matches && matches[1])
+        {
+            return `10.1039/${matches[1].toUpperCase()}`;
+        }
     }
+
+
+
 }
 
 // Test situations for the doi matching function
@@ -258,7 +277,8 @@ function test_match_doi_function()
                       "DOI: 10.1021/acs.orglett.5b00297）",
                       'http://xlink.rsc.org/?DOI=C6CC05568K',
                       "https://lls.reaxys.com/xflink?aulast=Xu&title=Bioorganic%20and%20Medicinal%20Chemistry%20Letters&volume=29&issue=19&spage=&date=2019&coden=BMCLE&doi=10.1016%2Fj.bmcl.2019.126630&issn=1464-3405",
-                      "https://www.thieme-connect.de/products/ejournals/pdf/10.1055/s-1997-1294.pdf"]
+                      "https://www.thieme-connect.de/products/ejournals/pdf/10.1055/s-1997-1294.pdf",
+                      "https://pubs.rsc.org/en/content/articlelanding/2017/cc/c6cc05568k"]
 
     let answers = [undefined,
                    "10.1021/acs.orglett.5b00297",
@@ -274,7 +294,8 @@ function test_match_doi_function()
                    "10.1021/acs.orglett.5b00297",
                    "10.1039/C6CC05568K",
                    "10.1016/j.bmcl.2019.126630",
-                   "10.1055/s-1997-1294"]
+                   "10.1055/s-1997-1294",
+                   "10.1039/C6CC05568K"]
 
     console.log("-----------Test start-----------")
     for (let i=0;i<test_cases.length;i++)
@@ -282,9 +303,9 @@ function test_match_doi_function()
         let test_case = test_cases[i]
         let answer = answers[i]
         if (match_doi(test_case)===answer)
-            console.log("PASS")
+            console.log("PASS",test_case,match_doi(test_case),answer)
         else
-            console.log('FAIL',test_case,match_doi(test_case),answer)
+            console.log('FAILFAILFAIL',test_case,match_doi(test_case),answer)
     }
     console.log("-----------Test end-----------")
 }

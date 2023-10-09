@@ -71,6 +71,23 @@ Developing this tool doesn't mean I support the piracy of scientific papers, nor
 
 ## Changelog
 
+0.9 - 
+ * Resolve URL substring matching vulnerability. 
+ * Add support for DOI matching like https://pubs.rsc.org/en/content/articlelanding/2017/cc/c6cc05568k --> 10.1039/C6CC05568K
+
+0.8 - 20231009
+ * Change default option to Sci-Hub as the Lib-Gen download servers are malfunctioning.
+ * Add more epdf sites to the direct-pdf list, the curren list include:
+   * https://pubs.acs.org/doi/epdf/*
+   * https://www.science.org/doi/epdf/*
+   * https://royalsocietypublishing.org/doi/epdf/*
+   * https://www.chinesechemsoc.org/doi/epdf/*
+   * https://www.pnas.org/doi/epdf/*
+   * https://onlinelibrary.wiley.com/doi/epdf/*
+   * https://journals.asm.org/doi/epub/*
+   * https://www.ahajournals.org/doi/epub*
+ * Removed redundant console warning about ERROR IGNORED for malformed URL.   
+
 0.7 - 20220307
  * Fix Lib-Gen using domains having more than 2 characters like `libgen.rocks`
 
@@ -116,7 +133,7 @@ Developing this tool doesn't mean I support the piracy of scientific papers, nor
 ## Todo
  * ~~Some of the [x-mol return pages](https://www.x-mol.com/q?option=Chemical%20Communications%202017,%2053%20(45)%20,%206054) doesn't directly give a DOI link, causing the automatic jump function could not be executed.~~
  * ~~Changing the Lib-Gen page icon to reflect download status.~~
- * (Probably solved, require long term testing by inspecting popup.html) Solve the "Unchecked runtime.lastError: QUOTA_BYTES_PER_ITEM quota exceeded" problem, which seems to appear after multiple pages are loaded.
+ * Solve the "Unchecked runtime.lastError: QUOTA_BYTES_PER_ITEM quota exceeded" problem, which seems to appear after multiple pages are loaded.
  * ~~Query https://doi.crossref.org/simpleTextQuery for 10.1002/ange.19370502804 gives two duplicated download button.~~
  * ~~Integrate https://doi.crossref.org/simpleTextQuery, https://search.crossref.org/ or similar CrossRef API. ~~
  * Automatic update of usable Sci-Hub domains.
