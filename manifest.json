@@ -1,6 +1,6 @@
 {
     "name": "LYH DOI Tools",
-    "version": "0.7",
+    "version": "0.8",
     "manifest_version": 3,
     "description": "LYH DOI Tools",
     "permissions": [
@@ -43,15 +43,22 @@
         {
             "run_at": "document_end",
             "matches": [
+                "https://pubs.acs.org/doi/epdf/*",
+                "https://www.science.org/doi/epdf/*",
+                "https://royalsocietypublishing.org/doi/epdf/*",
+                "https://www.chinesechemsoc.org/doi/epdf/*",
+                "https://www.pnas.org/doi/epdf/*",
                 "https://onlinelibrary.wiley.com/doi/epdf/*",
                 "https://onlinelibrary.wiley.com/doi/pdf/*",
                 "https://*.onlinelibrary.wiley.com/doi/epdf/*",
-                "https://*.onlinelibrary.wiley.com/doi/pdf/*"
+                "https://*.onlinelibrary.wiley.com/doi/pdf/*",
+                "https://journals.asm.org/doi/epub/*",
+                "https://www.ahajournals.org/doi/epub/*"
             ],
             "js": [
                 "jquery-3.6.0.js",
                 "lib.js",
-                "stupid_wiley_epdf_correction.js"
+                "stupid_epdf_correction.js"
             ]
         },
         {

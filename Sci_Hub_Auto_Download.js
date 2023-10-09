@@ -34,6 +34,7 @@ async function main()
             {
                 let text = "<b>PDF download auto-started by LYH DOI Tools... </b></br></br>"
                 text += 'PDF file found: <b>[ ' + link_filename + ' ]</b><br><br>'
+                text += 'You can close this tab now.<br><br>'
                 document.getElementById('article').innerHTML = '<center><br><br><br><br><br><br><br>' + text + '</center>'
             }
 

@@ -142,7 +142,7 @@ function match_doi(text)
     }
     catch (e)
     {
-        console.log("ERROR IGNORED (This is normal if the URL is weird):",e,text)
+        //console.log("ERROR IGNORED (This is normal if the URL is weird):",e,text)
     }
 
     //匹配：

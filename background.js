@@ -8,7 +8,7 @@ async function initialization()
                                    contexts:["selection"]});
 
     let default_settings = {}
-    default_settings.pdf_link_radio_choice = 'lib-gen'
+    default_settings.pdf_link_radio_choice = 'sci-hub'
     // default_settings.libgen_link = 'http://libgen.li/ads.php?doi=[DOI]&downloadname=[DOI_FILENAME]'
     default_settings.libgen_link = 'https://cdn1.booksdl.org/ads.php?doi=[DOI]'
     default_settings.scihub_link = 'https://sci-hub.se/[DOI]'
